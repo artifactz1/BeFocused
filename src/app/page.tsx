@@ -1,16 +1,26 @@
-import Image from 'next/image'
-import TimerComponent from './timer-component'
-import ClientComponent from './client-component'
+"use client";
+
+import Image from "next/image";
+import TimerComponent from "./components/timer-component";
+import ClientComponent from "./components/client-component";
+
+import { useState } from "react";
 
 export default function Home() {
+  console.log("SERVER");
+  const [start, setStart] = useState(false);
 
-  console.log("SERVER")
+  const handleStartButtonClick = () => {
+    setStart(true);
+  };
+
+  // Set the duration of the timer (in seconds)
+  const totalDuration = 60;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {/* <ClientComponent /> */}
-      <TimerComponent/>
-    </main>
-  )
+    <div className="flex flex-row h-screen">
+      <TimerComponent />
+      <ClientComponent />
+    </div>
+  );
 }
-

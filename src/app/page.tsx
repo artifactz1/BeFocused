@@ -8,7 +8,8 @@ import { Roboto_Mono } from "next/font/google";
 
 const roboto_mono = Roboto_Mono({
   subsets:["latin"],
-  weight:['400'],
+  weight:['400','700'],
+  style: ['normal', 'italic' ],
 })
 
 import { useState } from "react";

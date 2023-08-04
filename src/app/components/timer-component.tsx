@@ -1,5 +1,6 @@
 "use client";
 
+import { Roboto_Mono } from "next/font/google";
 import { useState, useEffect } from "react";
 import { AiFillPauseCircle } from "react-icons/ai";
 
@@ -47,8 +48,8 @@ export default function TimerComponent() {
         ></div>
 
         <div className="text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl">
-          {displayMinutes.toString().padStart(2, "0")}:
-          {displaySeconds.toString().padStart(2, "0")}
+            {displayMinutes.toString().padStart(2, "0")}:
+            {displaySeconds.toString().padStart(2, "0")}
         </div>
       </div>
     </div>

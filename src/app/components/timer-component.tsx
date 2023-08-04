@@ -39,14 +39,14 @@ export default function TimerComponent() {
     <div className="w-1/2 h-screen p-4">
       <div className="bg-gray-200 w-full h-full flex items-end justify-center rounded-[30px] overflow-hidden relative border-[2px] border-black">
         <div
-          className="bg-red-500 h-full w-full transition-transform duration-1000 origin-bottom"
+          className="bg-[#BB3B0E] h-full w-full transition-transform duration-1000 origin-bottom"
           style={{
             transform: `scaleY(${progress / 100})`,
             transformOrigin: "bottom",
           }}
         ></div>
 
-        <div className="text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl">
           {displayMinutes.toString().padStart(2, "0")}:
           {displaySeconds.toString().padStart(2, "0")}
         </div>

@@ -4,6 +4,13 @@ import Image from "next/image";
 import TimerComponent from "./components/timer-component";
 import ClientComponent from "./components/client-component";
 
+import { Roboto_Mono } from "next/font/google";
+
+const roboto_mono = Roboto_Mono({
+  subsets:["latin"],
+  weight:['400'],
+})
+
 import { useState } from "react";
 
 export default function Home() {
@@ -18,9 +25,12 @@ export default function Home() {
   const totalDuration = 60;
 
   return (
-    <div className="flex flex-row h-screen">
-      <TimerComponent />
-      <ClientComponent />
-    </div>
+    <main className={roboto_mono.className}>
+      <div className="flex flex-row h-screen">
+        <TimerComponent />
+        <ClientComponent />
+      </div>
+    </main>
+    
   );
 }

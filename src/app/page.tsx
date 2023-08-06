@@ -18,9 +18,11 @@ export default function Home() {
   const totalDuration = 60;
 
   return (
-    <div className="flex flex-row h-screen">
-      <TimerComponent />
-      <ClientComponent />
-    </div>
+    <>
+      <div className="flex flex-col">
+        <TimerComponent />
+        {/* <ClientComponent /> */}
+      </div>
+    </>
   );
 }

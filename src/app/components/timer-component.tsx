@@ -33,7 +33,7 @@
 
 //   // Format the remaining time in minutes and seconds
 //   const displayMinutes = Math.floor(remainingTime / 60);
-//   const displaySeconds = remainingTime % 60;
+// //   const displaySeconds = remainingTime % 60;
 
 //   return (
 //     <div className="w-1/2 h-screen p-4">

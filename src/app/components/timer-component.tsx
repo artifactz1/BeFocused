@@ -33,7 +33,7 @@
 
 //   // Format the remaining time in minutes and seconds
 //   const displayMinutes = Math.floor(remainingTime / 60);
-// //   const displaySeconds = remainingTime % 60;
+//   const displaySeconds = remainingTime % 60;
 
 //   return (
 //     <div className="w-1/2 h-screen p-4">
@@ -120,10 +120,11 @@
 
 import { useState, useEffect } from "react";
 import { AiFillPauseCircle } from "react-icons/ai";
+import RainEffect from "./rain-component";
 
 export default function TimerComponent() {
-  const minutes = 25;
-  const seconds = 0;
+  const minutes = 0;
+  const seconds = 10;
 
   // Convert the total duration to seconds
   const totalDuration = minutes * 60 + seconds;
@@ -162,7 +163,6 @@ export default function TimerComponent() {
           transformOrigin: "bottom",
         }}
       ></div>
-
       <div className="text-black text-[120px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         {displayMinutes.toString().padStart(2, "0")}:
         {displaySeconds.toString().padStart(2, "0")}

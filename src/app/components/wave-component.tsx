@@ -40,10 +40,10 @@ const WaveComponent = () => {
           <use
             xlinkHref="#gentle-wave"
             x="48"
-            y="6.5"
+            y="7"
             fill="rgba(255,255,255,0.5)"
           />
-          <use xlinkHref="#gentle-wave" x="48" y="7" fill="#fff" />
+          <use xlinkHref="#gentle-wave" x="48" y="9" fill="#fff" />
         </g>
       </svg>
     </div>

@@ -4,8 +4,8 @@ import RainEffect from "./rain-component";
 import WaveComponent from "./wave-component";
 
 const TimerComponent: React.FC = () => {
-  const initialMinutes = 25;
-  const initialSeconds = 0;
+  const initialMinutes = 0;
+  const initialSeconds = 3;
 
   // Convert the total duration to seconds
   const totalDuration = initialMinutes * 60 + initialSeconds;
@@ -16,7 +16,8 @@ const TimerComponent: React.FC = () => {
   const [hasPlayed, setHasPlaying] = useState(false);
   const [inputMinutes, setInputMinutes] = useState(initialMinutes.toString());
   const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
-  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+  const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
+
   const [getCurrentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {

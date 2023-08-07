@@ -28,7 +28,8 @@ body {
 .rain__drop path {
   fill: #a1c6cc;
   opacity: var(--o);
-  transform: scaleY(calc(var(--s) * 1.5));
+  /* Change the value to increase rain speed */
+  transform: scaleY(calc(var(--s) * 2));
 }
 
 @keyframes drop {

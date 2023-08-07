@@ -14,6 +14,7 @@ const lato = Lato({
 
 import { useState } from "react";
 import RainComponent from "./components/rain-component";
+import WaveComponent from "./components/wave-component";
 
 export default function Home() {
   console.log("SERVER");
@@ -30,8 +31,8 @@ export default function Home() {
     <main style={lato.style}>
       <div className="flex flex-row h-screen">
         <RainComponent />
-        {/* <TimerComponent /> */}
-
+        <TimerComponent />
+        {/* <WaveComponent /> */}
         {/* <ClientComponent /> */}
       </div>
     </main>

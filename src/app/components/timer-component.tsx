@@ -229,16 +229,18 @@
 import { useState, useEffect } from "react";
 import { AiFillPauseCircle } from "react-icons/ai";
 import RainEffect from "./rain-component";
+import WaveComponent from "./wave-component";
 
 export default function TimerComponent() {
   const minutes = 0;
-  const seconds = 10;
+  const seconds = 30;
 
   // Convert the total duration to seconds
   const totalDuration = minutes * 60 + seconds;
 
   const [progress, setProgress] = useState(100);
   const [remainingTime, setRemainingTime] = useState(totalDuration);
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
   useEffect(() => {
     let currentTime = totalDuration;
@@ -262,15 +264,31 @@ export default function TimerComponent() {
   const displayMinutes = Math.floor(remainingTime / 60);
   const displaySeconds = remainingTime % 60;
 
+  // Calculate the position of the wave component
+  const wavePosition = (progress / 100) * screenHeight;
+
+  // Calculate the position of the wave component
   return (
     <div className="w-screen h-screen">
       <div
-        className="bg-red-500 h-full w-full transition-transform duration-1000 origin-bottom"
+        className="bg-white h-full w-full transition-transform duration-1000 origin-bottom absolute"
         style={{
-          transform: `scaleY(${1 - progress / 100})`,
+          //   transform: `scaleY(${1 - progress / 100} `,
+          transform: `scaleY(${1 - progress / 100 - 0.06} `,
           transformOrigin: "bottom",
         }}
-      ></div>
+      />
+
+      <div
+        className="waves absolute w-full transition-transform duration-1000 origin-bottom bottom-3"
+        style={{
+          transform: `translateY(${wavePosition}px)`, // Use translateY to position the wave component
+
+          transformOrigin: "bottom",
+        }}
+      >
+        <WaveComponent />
+      </div>
       <div className="text-black text-[120px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         {displayMinutes.toString().padStart(2, "0")}:
         {displaySeconds.toString().padStart(2, "0")}

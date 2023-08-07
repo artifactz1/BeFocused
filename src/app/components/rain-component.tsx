@@ -1,28 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../styles/rain.css"; // Import the CSS file
 
-const droplets = 250;
+const droplets = 500;
 
 const Rain = () => {
   const generateRandomValue = () => Math.random() * 100;
   const generateRandomFloat = () => Math.random();
   const generateRandomSignedFloat = () => Math.random() * 2 - 1;
 
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
+    // I added a margin top because there was this animation on the top where all the droplets would show
     <div className="-mt-[30px]">
       {Array.from({ length: droplets }).map((_, index) => (
         <svg

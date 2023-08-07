@@ -23,7 +23,7 @@ const Rain = () => {
   }, []);
 
   return (
-    <div className="rain__container">
+    <div className="-mt-[30px]">
       {Array.from({ length: droplets }).map((_, index) => (
         <svg
           key={index}

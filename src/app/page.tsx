@@ -30,7 +30,7 @@ export default function Home() {
     <main style={lato.style}>
       <div className="flex flex-row h-screen">
         <RainComponent />
-        <TimerComponent />
+        {/* <TimerComponent /> */}
 
         {/* <ClientComponent /> */}
       </div>

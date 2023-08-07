@@ -51,9 +51,9 @@ const TimerComponent: React.FC = () => {
   return (
     <div className="w-screen h-screen">
       <div
-        className="bg-red-500 h-full w-full transition-transform  duration-1000 origin-top bottom-0 absolute"
+        className="bg-white h-full w-full transition-transform  duration-1000 origin-top bottom-0 absolute"
         style={{
-          transform: `scaleY(${1 - progress / 100 - 0.1})`, // Adjust the scale to your preference
+          transform: `scaleY(${1 - progress / 100 - 0.09})`, // Adjust the scale to your preference
           transformOrigin: "bottom",
         }}
       />

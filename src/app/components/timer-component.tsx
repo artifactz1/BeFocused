@@ -116,6 +116,114 @@
 //   );
 // }
 
+// "use client";
+
+// import { useState, useEffect } from "react";
+// import { AiFillPauseCircle } from "react-icons/ai";
+// import RainEffect from "./rain-component";
+
+// export default function TimerComponent() {
+//   const minutes = 0;
+//   const seconds = 10;
+
+//   // Convert the total duration to seconds
+//   const totalDuration = minutes * 60 + seconds;
+
+//   const [progress, setProgress] = useState(100);
+//   const [remainingTime, setRemainingTime] = useState(totalDuration);
+
+//   useEffect(() => {
+//     let currentTime = totalDuration;
+
+//     const timerInterval = setInterval(() => {
+//       currentTime -= 1;
+//       const newProgress = (currentTime / totalDuration) * 100;
+//       setProgress(newProgress);
+//       setRemainingTime(currentTime);
+
+//       if (currentTime <= 0) {
+//         console.log("Timer has completed!");
+//         clearInterval(timerInterval);
+//       }
+//     }, 1000);
+
+//     return () => clearInterval(timerInterval);
+//   }, [totalDuration]);
+
+//   // Format the remaining time in minutes and seconds
+//   const displayMinutes = Math.floor(remainingTime / 60);
+//   const displaySeconds = remainingTime % 60;
+
+//   return (
+//     <div className="w-screen h-screen">
+//       <div
+//         className="bg-red-500 h-full w-full transition-transform duration-1000 origin-bottom"
+//         style={{
+//           transform: `scaleY(${progress / 100})`,
+//           transformOrigin: "top",
+//         }}
+//       >
+//       <div className="text-black text-[120px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+//         {displayMinutes.toString().padStart(2, "0")}:
+//         {displaySeconds.toString().padStart(2, "0")}
+//       </div>
+//     </div>
+//   );
+// }
+
+// import { useState, useEffect } from "react";
+// import { AiFillPauseCircle } from "react-icons/ai";
+// import RainEffect from "./rain-component";
+
+// export default function TimerComponent() {
+//   const minutes = 0;
+//   const seconds = 10;
+
+//   // Convert the total duration to seconds
+//   const totalDuration = minutes * 60 + seconds;
+
+//   const [progress, setProgress] = useState(100);
+//   const [remainingTime, setRemainingTime] = useState(totalDuration);
+
+//   useEffect(() => {
+//     let currentTime = totalDuration;
+
+//     const timerInterval = setInterval(() => {
+//       currentTime -= 1;
+//       const newProgress = (currentTime / totalDuration) * 100;
+//       setProgress(newProgress);
+//       setRemainingTime(currentTime);
+
+//       if (currentTime <= 0) {
+//         console.log("Timer has completed!");
+//         clearInterval(timerInterval);
+//       }
+//     }, 1000);
+
+//     return () => clearInterval(timerInterval);
+//   }, [totalDuration]);
+
+//   // Format the remaining time in minutes and seconds
+//   const displayMinutes = Math.floor(remainingTime / 60);
+//   const displaySeconds = remainingTime % 60;
+
+//   return (
+//     <div className="w-screen h-screen">
+//       <div
+//         className="bg-red-500 h-full w-full transition-transform duration-1000 origin-bottom"
+//         style={{
+//           transform: `scaleY(${progress / 100})`,
+//           transformOrigin: "bottom", // Changed transformOrigin from "top" to "bottom"
+//         }}
+//       ></div>
+//       <div className="text-black text-[120px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+//         {displayMinutes.toString().padStart(2, "0")}:
+//         {displaySeconds.toString().padStart(2, "0")}
+//       </div>
+//     </div>
+//   );
+// }
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -159,7 +267,7 @@ export default function TimerComponent() {
       <div
         className="bg-red-500 h-full w-full transition-transform duration-1000 origin-bottom"
         style={{
-          transform: `scaleY(${progress / 100})`,
+          transform: `scaleY(${1 - progress / 100})`,
           transformOrigin: "bottom",
         }}
       ></div>

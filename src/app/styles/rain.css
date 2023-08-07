@@ -8,13 +8,14 @@
 body {
   background-color: #6c78a9;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden; /* Prevent vertical scrollbar */
 }
 
 .rain__drop {
   animation-delay: calc(var(--d) * 1s);
-  animation-duration: calc(var(--a) * 1s);
+  animation-duration: calc(var(--a) * 3s);
   animation-iteration-count: infinite;
   animation-name: drop;
   animation-timing-function: linear;

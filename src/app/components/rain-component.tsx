@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/rain.css"; // Import the CSS file
 
 const droplets = 250;
@@ -8,22 +8,36 @@ const Rain = () => {
   const generateRandomFloat = () => Math.random();
   const generateRandomSignedFloat = () => Math.random() * 2 - 1;
 
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <div className="rain">
+    <div className="rain__container">
       {Array.from({ length: droplets }).map((_, index) => (
         <svg
           key={index}
           className="rain__drop"
           style={
             {
-              "--x": `${generateRandomValue()}%`,
-              "--y": `${generateRandomValue() * 10}`, // Adjust the range for --y
+              "--x": `${generateRandomValue()}`, // Spread on the entire width
+              "--y": `${generateRandomValue() * 100}vh`, // Spread on the entire height
               "--o": generateRandomFloat(),
               "--a": generateRandomFloat() + 0.5,
               "--d": generateRandomSignedFloat(),
               "--s": generateRandomFloat(),
             } as React.CSSProperties
-          } // Use type assertion to allow custom CSS properties
+          }
           preserveAspectRatio="xMinYMin"
           viewBox="0 0 5 50"
         >

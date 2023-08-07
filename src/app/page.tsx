@@ -29,8 +29,8 @@ export default function Home() {
   return (
     <main style={lato.style}>
       <div className="flex flex-row h-screen">
-        {/* <TimerComponent /> */}
         <RainComponent />
+        {/* <TimerComponent /> */}
 
         {/* <ClientComponent /> */}
       </div>

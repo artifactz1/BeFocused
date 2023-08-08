@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
-import RainEffect from "./rain-component";
 import WaveComponent from "./wave-component";
 
 const TimerComponent: React.FC = () => {
@@ -17,15 +16,17 @@ const TimerComponent: React.FC = () => {
   const totalDuration = calculateTime(initialMinutes, initialSeconds);
 
   const [progress, setProgress] = useState(100);
-  const [remainingTime, setRemainingTime] = useState(totalDuration);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasPlayed, setHasPlaying] = useState(false);
   const [inputMinutes, setInputMinutes] = useState(initialMinutes.toString());
   const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
-  // const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
-  const [screenHeight, setScreenHeight] = useState(0);
-
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
+  const [remainingTime, setRemainingTime] = useState(getCurrentTime);
+  const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
+  let [displayMinutes, setDisplayMinutes] = useState(0);
+  let [displaySeconds, setDisplaySeconds] = useState(0);
+  // const [screenHeight, setScreenHeight] = useState(0);
+
 
   useEffect(() => {
     setScreenHeight(window.innerHeight); // Set initial value after component mount
@@ -35,7 +36,7 @@ const TimerComponent: React.FC = () => {
     const timerInterval = setInterval(() => {
       if (isPlaying) {
         currentTime -= 1;
-        const newProgress = (currentTime / totalDuration) * 100;
+        const newProgress = (currentTime / getCurrentTime) * 100;
         setProgress(newProgress);
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
@@ -59,9 +60,7 @@ const TimerComponent: React.FC = () => {
     };
   }, [totalDuration, isPlaying]);
 
-  // Format the remaining time in minutes and seconds
-  const displayMinutes = Math.floor(remainingTime / 60);
-  const displaySeconds = remainingTime % 60;
+
 
   // Calculate the position of the wave component
   const wavePosition = (progress / 100) * screenHeight;
@@ -75,10 +74,18 @@ const TimerComponent: React.FC = () => {
       setInputSeconds(value);
     }
 
-    resetTimer();
+    displayTimer();
+
+    // resetTimer();
   };
   
-  
+  const displayTimer = () => {
+    // Format the remaining time in minutes and seconds
+    setDisplayMinutes(Math.floor(remainingTime / 60));
+    setDisplaySeconds(remainingTime % 60);
+  }
+
+  // displayTimer();
 
   // Function to start the timer
   const startTimer = () => {
@@ -108,6 +115,7 @@ const TimerComponent: React.FC = () => {
     setIsPlaying(false);
     handleTimeInput;
     setRemainingTime(calculateTime(parseInt(inputMinutes), parseInt(inputSeconds)));
+    displayTimer();
     setProgress(100);
   };
 
@@ -132,7 +140,8 @@ const TimerComponent: React.FC = () => {
       </div>
 
       <div className="text-black text-[120px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        {
+       
+        { 
         displayMinutes.toString().padStart(2, "0")
         
         }

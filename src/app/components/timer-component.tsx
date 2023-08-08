@@ -19,6 +19,8 @@ const TimerComponent: React.FC = () => {
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const [getCurrentTime, setCurrentTime] = useState(0);
 
+  const inputDuration = parseInt(inputMinutes) * 60 + parseInt(inputSeconds);
+
   useEffect(() => {
     let currentTime = totalDuration;
 
@@ -92,7 +94,7 @@ const TimerComponent: React.FC = () => {
   // Function to reset the timer
   const resetTimer = () => {
     setIsPlaying(false);
-    setRemainingTime(totalDuration);
+    setRemainingTime(inputDuration);
     setProgress(100);
   };
 

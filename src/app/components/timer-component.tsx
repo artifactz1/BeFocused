@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
+import RainEffect from "./rain-component";
 import WaveComponent from "./wave-component";
 
 const TimerComponent: React.FC = () => {
@@ -23,10 +24,11 @@ const TimerComponent: React.FC = () => {
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
   const [remainingTime, setRemainingTime] = useState(getCurrentTime);
   const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
-  let [displayMinutes, setDisplayMinutes] = useState(0);
-  let [displaySeconds, setDisplaySeconds] = useState(0);
   // const [screenHeight, setScreenHeight] = useState(0);
 
+  // Format the remaining time in minutes and seconds
+  const displayMinutes = Math.floor(remainingTime / 60);
+  const displaySeconds = remainingTime % 60;
 
   useEffect(() => {
     setScreenHeight(window.innerHeight); // Set initial value after component mount
@@ -62,6 +64,7 @@ const TimerComponent: React.FC = () => {
 
 
 
+
   // Calculate the position of the wave component
   const wavePosition = (progress / 100) * screenHeight;
 
@@ -69,35 +72,63 @@ const TimerComponent: React.FC = () => {
   const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "minutes") {
-      setInputMinutes(value);
+        console.log("checkMIN" , value)
+      if(value == null || value == undefined)
+      {
+        setInputMinutes("0")
+      }
+      else
+      {
+
+       setInputMinutes(value);
+      }
     } else if (name === "seconds") {
+
+        console.log("checkSec" , value)
+      if(value === null || value === undefined || parseInt(value.toString()) > 59 )
+      {
+        setInputMinutes("0")
+      }
+      else if(value.toString().length > 2)
+      {
+        setInputMinutes(value.toString().substring(0,2));
+
+      }
+      else if(value == "0")
+      {
+        setInputMinutes("0")
+
+      }
+      else{
       setInputSeconds(value);
+      }
     }
+      console.log(inputMinutes);
+      console.log(inputSeconds);
 
-    displayTimer();
-
-    // resetTimer();
-  };
-  
-  const displayTimer = () => {
-    // Format the remaining time in minutes and seconds
-    setDisplayMinutes(Math.floor(remainingTime / 60));
-    setDisplaySeconds(remainingTime % 60);
-  }
-
-  // displayTimer();
-
-  // Function to start the timer
-  const startTimer = () => {
-    if (hasPlayed === false) {
       const minutes = parseInt(inputMinutes);
       const seconds = parseInt(inputSeconds);
       const newTotalDuration = calculateTime(minutes, seconds);
       setRemainingTime(newTotalDuration);
-      setProgress(100);
-      setIsPlaying(true);
-      setHasPlaying(true);
-    }
+
+
+
+    resetTimer();
+  };
+  
+  
+
+  // Function to start the timer
+  const startTimer = () => {
+    // if (hasPlayed === false) {
+    //   const minutes = parseInt(inputMinutes);
+    //   const seconds = parseInt(inputSeconds);
+    //   const newTotalDuration = calculateTime(minutes, seconds);
+    //   setRemainingTime(newTotalDuration);
+    //   setProgress(100);
+    //   setIsPlaying(true);
+    //   setHasPlaying(true);
+    // }
 
     setRemainingTime(getCurrentTime);
     setProgress(100);
@@ -115,7 +146,7 @@ const TimerComponent: React.FC = () => {
     setIsPlaying(false);
     handleTimeInput;
     setRemainingTime(calculateTime(parseInt(inputMinutes), parseInt(inputSeconds)));
-    displayTimer();
+    setCurrentTime(calculateTime(parseInt(inputMinutes), parseInt(inputSeconds)));
     setProgress(100);
   };
 
@@ -140,8 +171,7 @@ const TimerComponent: React.FC = () => {
       </div>
 
       <div className="text-black text-[120px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-       
-        { 
+        {
         displayMinutes.toString().padStart(2, "0")
         
         }
@@ -149,7 +179,7 @@ const TimerComponent: React.FC = () => {
         :
         {
         
-        displaySeconds.toString().padStart(2, "0")
+        displaySeconds.toString().padEnd(2, "0")
         
         }
       </div>
@@ -158,6 +188,8 @@ const TimerComponent: React.FC = () => {
       <div className="flex flex-row absolute bottom-4 left-4">
         <input
           type="number"
+          min="0"
+          max="60"
           name="minutes"
           value={inputMinutes}
           onChange={handleTimeInput}
@@ -166,6 +198,8 @@ const TimerComponent: React.FC = () => {
         <span className="text-lg">:</span>
         <input
           type="number"
+          min="0"
+          max="60"
           name="seconds"
           value={inputSeconds}
           onChange={handleTimeInput}

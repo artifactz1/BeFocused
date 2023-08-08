@@ -29,7 +29,7 @@ body {
   fill: #a1c6cc;
   opacity: var(--o);
   /* Change the value to increase rain speed */
-  transform: scaleY(calc(var(--s) * 2));
+  transform: scaleY(calc(var(--s) * 4));
 }
 
 @keyframes drop {

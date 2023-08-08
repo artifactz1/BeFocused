@@ -93,12 +93,12 @@ const TimerComponent: React.FC = () => {
     console.log(inputMinutes);
     console.log(inputSeconds);
 
-    const minutes = parseInt(inputMinutes);
-    const seconds = parseInt(inputSeconds);
-    const newTotalDuration = calculateTime(minutes, seconds);
-    setRemainingTime(newTotalDuration);
+    // const minutes = parseInt(inputMinutes);
+    // const seconds = parseInt(inputSeconds);
+    // const newTotalDuration = calculateTime(minutes, seconds);
+    // setRemainingTime(newTotalDuration);
 
-    resetTimer();
+    // resetTimer();
   };
 
   // Function to start the timer
@@ -126,8 +126,13 @@ const TimerComponent: React.FC = () => {
 
   // Function to reset the timer
   const resetTimer = () => {
+    // handleTimeInput;
+    const minutes = parseInt(inputMinutes);
+    const seconds = parseInt(inputSeconds);
+    const newTotalDuration = calculateTime(minutes, seconds);
+    setRemainingTime(newTotalDuration);
+
     setIsPlaying(false);
-    handleTimeInput;
     setRemainingTime(
       calculateTime(parseInt(inputMinutes), parseInt(inputSeconds))
     );
@@ -166,8 +171,7 @@ const TimerComponent: React.FC = () => {
       <div className="flex flex-row absolute bottom-4 left-4">
         <input
           type="number"
-          min="0"
-          max="60"
+          min="1"
           name="minutes"
           value={inputMinutes}
           onChange={handleTimeInput}
@@ -176,8 +180,8 @@ const TimerComponent: React.FC = () => {
         <span className="text-lg">:</span>
         <input
           type="number"
-          min="0"
-          max="60"
+          min="-1"
+          max="61"
           name="seconds"
           value={inputSeconds}
           onChange={handleTimeInput}

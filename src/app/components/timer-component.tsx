@@ -4,30 +4,40 @@ import RainEffect from "./rain-component";
 import WaveComponent from "./wave-component";
 
 const TimerComponent: React.FC = () => {
+  const calculateTime = (minutes: number, seconds: number) => {
+    const totalDuration = minutes * 60 + seconds;
+    return totalDuration;
+  };
+
   const initialMinutes = 25;
   const initialSeconds = 0;
 
   // Convert the total duration to seconds
-  const totalDuration = initialMinutes * 60 + initialSeconds;
+  const totalDuration = calculateTime(initialMinutes, initialSeconds);
 
   const [progress, setProgress] = useState(100);
-  const [remainingTime, setRemainingTime] = useState(totalDuration);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasPlayed, setHasPlaying] = useState(false);
   const [inputMinutes, setInputMinutes] = useState(initialMinutes.toString());
   const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
-  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-  const [getCurrentTime, setCurrentTime] = useState(0);
+  const [getCurrentTime, setCurrentTime] = useState(totalDuration);
+  const [remainingTime, setRemainingTime] = useState(getCurrentTime);
+  const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
+  // const [screenHeight, setScreenHeight] = useState(0);
 
-  const inputDuration = parseInt(inputMinutes) * 60 + parseInt(inputSeconds);
+  // Format the remaining time in minutes and seconds
+  const displayMinutes = Math.floor(remainingTime / 60);
+  const displaySeconds = remainingTime % 60;
 
   useEffect(() => {
-    let currentTime = totalDuration;
+    setScreenHeight(window.innerHeight); // Set initial value after component mount
+
+    let currentTime = getCurrentTime;
 
     const timerInterval = setInterval(() => {
       if (isPlaying) {
         currentTime -= 1;
-        const newProgress = (currentTime / totalDuration) * 100;
+        const newProgress = (currentTime / getCurrentTime) * 100;
         setProgress(newProgress);
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
@@ -51,10 +61,6 @@ const TimerComponent: React.FC = () => {
     };
   }, [totalDuration, isPlaying]);
 
-  // Format the remaining time in minutes and seconds
-  const displayMinutes = Math.floor(remainingTime / 60);
-  const displaySeconds = remainingTime % 60;
-
   // Calculate the position of the wave component
   const wavePosition = (progress / 100) * screenHeight;
 
@@ -62,23 +68,50 @@ const TimerComponent: React.FC = () => {
   const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "minutes") {
-      setInputMinutes(value);
+      console.log("checkMIN", value);
+      if (value == null || value == undefined) {
+        setInputMinutes("0");
+      } else {
+        setInputMinutes(value);
+      }
     } else if (name === "seconds") {
-      setInputSeconds(value);
+      console.log("checkSec", value);
+      if (
+        value === null ||
+        value === undefined ||
+        parseInt(value.toString()) > 59
+      ) {
+        setInputMinutes("0");
+      } else if (value.toString().length > 2) {
+        setInputMinutes(value.toString().substring(0, 2));
+      } else if (value == "0") {
+        setInputMinutes("0");
+      } else {
+        setInputSeconds(value);
+      }
     }
+    console.log(inputMinutes);
+    console.log(inputSeconds);
+
+    const minutes = parseInt(inputMinutes);
+    const seconds = parseInt(inputSeconds);
+    const newTotalDuration = calculateTime(minutes, seconds);
+    setRemainingTime(newTotalDuration);
+
+    resetTimer();
   };
 
   // Function to start the timer
   const startTimer = () => {
-    if (hasPlayed === false) {
-      const minutes = parseInt(inputMinutes);
-      const seconds = parseInt(inputSeconds);
-      const newTotalDuration = minutes * 60 + seconds;
-      setRemainingTime(newTotalDuration);
-      setProgress(100);
-      setIsPlaying(true);
-      setHasPlaying(true);
-    }
+    // if (hasPlayed === false) {
+    //   const minutes = parseInt(inputMinutes);
+    //   const seconds = parseInt(inputSeconds);
+    //   const newTotalDuration = calculateTime(minutes, seconds);
+    //   setRemainingTime(newTotalDuration);
+    //   setProgress(100);
+    //   setIsPlaying(true);
+    //   setHasPlaying(true);
+    // }
 
     setRemainingTime(getCurrentTime);
     setProgress(100);
@@ -94,7 +127,13 @@ const TimerComponent: React.FC = () => {
   // Function to reset the timer
   const resetTimer = () => {
     setIsPlaying(false);
-    setRemainingTime(inputDuration);
+    handleTimeInput;
+    setRemainingTime(
+      calculateTime(parseInt(inputMinutes), parseInt(inputSeconds))
+    );
+    setCurrentTime(
+      calculateTime(parseInt(inputMinutes), parseInt(inputSeconds))
+    );
     setProgress(100);
   };
 
@@ -120,13 +159,15 @@ const TimerComponent: React.FC = () => {
 
       <div className="text-black text-[120px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         {displayMinutes.toString().padStart(2, "0")}:
-        {displaySeconds.toString().padStart(2, "0")}
+        {displaySeconds.toString().padEnd(2, "0")}
       </div>
 
       {/* Time Input */}
       <div className="flex flex-row absolute bottom-4 left-4">
         <input
           type="number"
+          min="0"
+          max="60"
           name="minutes"
           value={inputMinutes}
           onChange={handleTimeInput}
@@ -135,6 +176,8 @@ const TimerComponent: React.FC = () => {
         <span className="text-lg">:</span>
         <input
           type="number"
+          min="0"
+          max="60"
           name="seconds"
           value={inputSeconds}
           onChange={handleTimeInput}

@@ -143,7 +143,7 @@ const TimerComponent: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-[calc(100dvh)]  md:h-screen">
       <div
         className="bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0 absolute"
         style={{

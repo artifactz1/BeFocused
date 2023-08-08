@@ -22,8 +22,8 @@ const TimerComponent: React.FC = () => {
   const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
   const [remainingTime, setRemainingTime] = useState(getCurrentTime);
-  const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
-  // const [screenHeight, setScreenHeight] = useState(0);
+  // const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
+  const [screenHeight, setScreenHeight] = useState(0);
 
   // Format the remaining time in minutes and seconds
   const displayMinutes = Math.floor(remainingTime / 60);

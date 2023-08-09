@@ -1,8 +1,6 @@
-"use client";
 
-import Image from "next/image";
-import TimerComponent from "./components/timer-component";
-import ClientComponent from "./components/client-component";
+import TimerComponent from "../components/timer-component";
+import ClientComponent from "../components/client-component";
 
 import { Lato, Roboto_Mono } from "next/font/google";
 
@@ -12,28 +10,21 @@ const lato = Lato({
   style: ["normal", "italic"],
 });
 
-import { useState } from "react";
-import RainComponent from "./components/rain-component";
-import WaveComponent from "./components/wave-component";
+import RainComponent from "../components/rain-component";
 
 export default function Home() {
   console.log("SERVER");
-  const [start, setStart] = useState(false);
-
-  const handleStartButtonClick = () => {
-    setStart(true);
-  };
 
   // Set the duration of the timer (in seconds)
   const totalDuration = 60;
+
+  const time = 0;
 
   return (
     <main style={lato.style}>
       <div className="flex flex-row h-screen">
         <RainComponent />
         <TimerComponent />
-        {/* <WaveComponent /> */}
-        {/* <ClientComponent /> */}
       </div>
     </main>
   );

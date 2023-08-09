@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/waves.css"; // Import the CSS file
 
 const WaveComponent = () => {

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import "../styles/rain.css"; // Import the CSS file
 
 const droplets = 500;

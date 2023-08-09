@@ -1,5 +1,7 @@
 // TimingControls.tsx
 
+"use client"
+
 import React from "react";
 import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
 

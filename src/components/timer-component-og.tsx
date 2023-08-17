@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
 import RainEffect from "./rain-component";
@@ -145,8 +146,6 @@ const TimerComponent: React.FC = () => {
 
   return (
     <div className="w-screen h-[calc(100dvh)]  md:h-screen">
-      
-
       {/* Timer Visual Component (Server) (Doesn't need React)===================================================================================== */}
 
       <div

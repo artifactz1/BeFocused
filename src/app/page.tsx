@@ -1,23 +1,21 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import TimerComponent from "./components/timer-component";
-import ClientComponent from "./components/client-component";
+import TimerComponent from './components/timer-component';
 
-import { Lato, Roboto_Mono } from "next/font/google";
+import { Lato, Roboto_Mono } from 'next/font/google';
 
 const lato = Lato({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic']
 });
 
-import { useState } from "react";
-import RainComponent from "./components/rain-component";
-import WaveComponent from "./components/wave-component";
+import { useState } from 'react';
+import RainComponent from './components/rain-component';
+import WaveComponent from './components/wave-component';
 
 export default function Home() {
-  console.log("SERVER");
+  console.log('SERVER');
   const [start, setStart] = useState(false);
 
   const handleStartButtonClick = () => {

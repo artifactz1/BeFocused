@@ -10,29 +10,12 @@ const lato = Lato({
   style: ['normal', 'italic']
 });
 
-import { useState } from 'react';
-import RainComponent from './components/rain-component';
-import WaveComponent from './components/wave-component';
+import PomoTimer from './components/pomo-timer';
 
 export default function Home() {
-  console.log('SERVER');
-  const [start, setStart] = useState(false);
-
-  const handleStartButtonClick = () => {
-    setStart(true);
-  };
-
-  // Set the duration of the timer (in seconds)
-  const totalDuration = 60;
-
   return (
     <main style={lato.style}>
-      <div className="flex flex-row h-screen">
-        <RainComponent />
-        <TimerComponent />
-        {/* <WaveComponent /> */}
-        {/* <ClientComponent /> */}
-      </div>
+      <PomoTimer />
     </main>
   );
 }

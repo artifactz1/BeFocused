@@ -1,7 +1,3 @@
-'use client';
-
-import TimerComponent from './components/timer-component';
-
 import { Lato, Roboto_Mono } from 'next/font/google';
 
 const lato = Lato({

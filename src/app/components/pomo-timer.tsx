@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import RainComponent from './rain-component';
 import TimerComponent from './timer-component';

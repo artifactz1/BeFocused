@@ -1,7 +1,7 @@
-// TimingControls.tsx
+'use client';
 
-import React from "react";
-import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
+import React from 'react';
+import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
 
 interface TimingControlsProps {
   onStart: () => void;
@@ -14,7 +14,7 @@ const TimingControls: React.FC<TimingControlsProps> = ({
   onStart,
   onPause,
   onReset,
-  isPlaying,
+  isPlaying
 }) => {
   return (
     <div className="flex flex-row absolute bottom-4 left-4">

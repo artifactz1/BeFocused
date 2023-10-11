@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
-import "../styles/rain.css"; // Import the CSS file
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import '../styles/rain.css'; // Import the CSS file
 
 const droplets = 500;
 
@@ -17,12 +19,12 @@ const Rain = () => {
           className="rain__drop"
           style={
             {
-              "--x": `${generateRandomValue()}`, // Spread on the entire width
-              "--y": `${generateRandomValue() * 100}vh`, // Spread on the entire height
-              "--o": generateRandomFloat(),
-              "--a": generateRandomFloat() + 0.5,
-              "--d": generateRandomSignedFloat(),
-              "--s": generateRandomFloat(),
+              '--x': `${generateRandomValue()}`, // Spread on the entire width
+              '--y': `${generateRandomValue() * 100}vh`, // Spread on the entire height
+              '--o': generateRandomFloat(),
+              '--a': generateRandomFloat() + 0.5,
+              '--d': generateRandomSignedFloat(),
+              '--s': generateRandomFloat()
             } as React.CSSProperties
           }
           preserveAspectRatio="xMinYMin"

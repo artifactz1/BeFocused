@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
-import RainEffect from "./rain-component";
-import WaveComponent from "./wave-component";
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
+import RainEffect from './rain-component';
+import WaveComponent from './wave-component';
 
 const TimerComponent: React.FC = () => {
   const calculateTime = (minutes: number, seconds: number) => {
@@ -42,7 +44,7 @@ const TimerComponent: React.FC = () => {
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
         if (currentTime <= 0) {
-          console.log("Timer has completed!");
+          console.log('Timer has completed!');
           setIsPlaying(false);
           clearInterval(timerInterval);
         }
@@ -53,11 +55,11 @@ const TimerComponent: React.FC = () => {
       setScreenHeight(window.innerHeight);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
       clearInterval(timerInterval);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, [totalDuration, isPlaying]);
 
@@ -67,25 +69,25 @@ const TimerComponent: React.FC = () => {
   // Function to handle user input for time
   const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    if (name === "minutes") {
-      console.log("checkMIN", value);
+    if (name === 'minutes') {
+      console.log('checkMIN', value);
       if (value == null || value == undefined) {
-        setInputMinutes("0");
+        setInputMinutes('0');
       } else {
         setInputMinutes(value);
       }
-    } else if (name === "seconds") {
-      console.log("checkSec", value);
+    } else if (name === 'seconds') {
+      console.log('checkSec', value);
       if (
         value === null ||
         value === undefined ||
         parseInt(value.toString()) > 59
       ) {
-        setInputMinutes("0");
+        setInputMinutes('0');
       } else if (value.toString().length > 2) {
         setInputMinutes(value.toString().substring(0, 2));
-      } else if (value == "0") {
-        setInputMinutes("0");
+      } else if (value == '0') {
+        setInputMinutes('0');
       } else {
         setInputSeconds(value);
       }
@@ -148,7 +150,7 @@ const TimerComponent: React.FC = () => {
         className="bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0 absolute"
         style={{
           transform: `scaleY(${1 - progress / 100 - 0.09})`,
-          transformOrigin: "bottom",
+          transformOrigin: 'bottom'
         }}
       />
 
@@ -156,15 +158,15 @@ const TimerComponent: React.FC = () => {
         className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
         style={{
           transform: `translateY(${wavePosition}px)`,
-          transformOrigin: "bottom",
+          transformOrigin: 'bottom'
         }}
       >
         <WaveComponent />
       </div>
 
       <div className="text-black text-[120px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        {displayMinutes.toString().padStart(2, "0")}:
-        {displaySeconds.toString().padEnd(2, "0")}
+        {displayMinutes.toString().padStart(2, '0')}:
+        {displaySeconds.toString().padEnd(2, '0')}
       </div>
 
       {/* Time Input */}

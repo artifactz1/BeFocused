@@ -1,5 +1,7 @@
-import React from "react";
-import "../styles/waves.css"; // Import the CSS file
+'use client';
+
+import React from 'react';
+import '../styles/waves.css'; // Import the CSS file
 
 const WaveComponent = () => {
   return (

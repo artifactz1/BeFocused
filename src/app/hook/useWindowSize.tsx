@@ -1,12 +1,19 @@
+'use client';
+
 import { useEffect, useState } from 'react';
+
+type WindowDimentions = {
+  width: number | undefined;
+  height: number | undefined;
+};
 
 // Hook
 export default function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
+  const [windowSize, setWindowSize] = useState<WindowDimentions>({
+    width: undefined,
+    height: undefined
   });
 
   useEffect(() => {

@@ -26,7 +26,7 @@ const TimerComponent: React.FC = () => {
   const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
   const [remainingTime, setRemainingTime] = useState(getCurrentTime);
-  const [screenHeight, setScreenHeight] = useState(() => size.height);
+  const [screenHeight, setScreenHeight] = useState(size.height);
   // const [screenHeight, setScreenHeight] = useState(0);
 
   // Format the remaining time in minutes and seconds
@@ -66,7 +66,8 @@ const TimerComponent: React.FC = () => {
   }, [totalDuration, isPlaying]);
 
   // Calculate the position of the wave component
-  const wavePosition = (progress / 100) * screenHeight;
+
+  const wavePosition = (progress / 100) * (screenHeight || 0);
 
   // Function to handle user input for time
   const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -156,15 +157,17 @@ const TimerComponent: React.FC = () => {
         }}
       />
 
-      <div
-        className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
-        style={{
-          transform: `translateY(${wavePosition}px)`,
-          transformOrigin: 'bottom'
-        }}
-      >
-        <WaveComponent />
-      </div>
+      {wavePosition !== 0 && (
+        <div
+          className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
+          style={{
+            transform: `translateY(${wavePosition}px)`,
+            transformOrigin: 'bottom'
+          }}
+        >
+          <WaveComponent />
+        </div>
+      )}
 
       <div className="text-black text-[120px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         {displayMinutes.toString().padStart(2, '0')}:

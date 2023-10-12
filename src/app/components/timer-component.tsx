@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
-import RainEffect from './rain-component';
 import WaveComponent from './wave-component';
+import useWindowSize from '../hook/useWindowSize';
 
 const TimerComponent: React.FC = () => {
+  const size = useWindowSize();
+
   const calculateTime = (minutes: number, seconds: number) => {
     const totalDuration = minutes * 60 + seconds;
     return totalDuration;
@@ -24,15 +26,15 @@ const TimerComponent: React.FC = () => {
   const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
   const [remainingTime, setRemainingTime] = useState(getCurrentTime);
-  // const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
-  const [screenHeight, setScreenHeight] = useState(0);
+  const [screenHeight, setScreenHeight] = useState(() => size.height);
+  // const [screenHeight, setScreenHeight] = useState(0);
 
   // Format the remaining time in minutes and seconds
   const displayMinutes = Math.floor(remainingTime / 60);
   const displaySeconds = remainingTime % 60;
 
   useEffect(() => {
-    setScreenHeight(window.innerHeight); // Set initial value after component mount
+    setScreenHeight(size.height); // Set initial value after component mount
 
     let currentTime = getCurrentTime;
 
@@ -52,7 +54,7 @@ const TimerComponent: React.FC = () => {
     }, 1000);
 
     const handleResize = () => {
-      setScreenHeight(window.innerHeight);
+      setScreenHeight(size.height);
     };
 
     window.addEventListener('resize', handleResize);

@@ -11,8 +11,6 @@ const lato = Lato({
 import RainComponent from "../components/rain-component";
 
 export default function Home() {
-  console.log("SERVER");
-
   // Set the duration of the timer (in seconds)
   const totalDuration = 60;
 

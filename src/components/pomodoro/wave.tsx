@@ -1,6 +1,6 @@
-import "../styles/waves.css"; // Import the CSS file
+import '@/styles/waves.css'; // Import the CSS file
 
-const WaveComponent = () => {
+const Wave = () => {
   return (
     <div className="waves absolute top-0 left-0 w-full h-full">
       <svg
@@ -49,4 +49,4 @@ const WaveComponent = () => {
   );
 };
 
-export default WaveComponent;
+export default Wave;

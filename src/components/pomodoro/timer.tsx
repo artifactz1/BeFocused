@@ -22,8 +22,6 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const totalDuration = calculateTime(initialMinutes, initialSeconds);
 
   const [progress, setProgress] = useState(100);
-  // const [isPlaying, setIsPlaying] = useState(false);
-  const [hasPlayed, setHasPlaying] = useState(false);
   const [inputMinutes, setInputMinutes] = useState(initialMinutes.toString());
   const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
@@ -44,15 +42,19 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       if (isPlaying) {
         currentTime -= 1;
         const newProgress = (currentTime / getCurrentTime) * 100;
+
         setProgress(
           Math.max(0, Math.floor(newProgress + originalProgress - 100))
         );
+
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
+
         if (currentTime <= 0) {
           console.log('Timer has completed!');
           setIsPlaying(false);
           clearInterval(timerInterval);
+          resetTimer();
         }
       }
     }, 1000);
@@ -98,32 +100,13 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
         setInputSeconds(value);
       }
     }
-    console.log(inputMinutes);
-    console.log(inputSeconds);
-
-    // const minutes = parseInt(inputMinutes);
-    // const seconds = parseInt(inputSeconds);
-    // const newTotalDuration = calculateTime(minutes, seconds);
-    // setRemainingTime(newTotalDuration);
-
-    // resetTimer();
   };
 
   // Function to start the timer
   const startTimer = () => {
-    // if (hasPlayed === false) {
-    //   const minutes = parseInt(inputMinutes);
-    //   const seconds = parseInt(inputSeconds);
-    //   const newTotalDuration = calculateTime(minutes, seconds);
-    //   setRemainingTime(newTotalDuration);
-    //   setProgress(100);
-    //   setIsPlaying(true);
-    //   setHasPlaying(true);
-    // }
     setOriginalProgress(progress);
     setProgress(progress);
     setIsPlaying(true);
-    setHasPlaying(true);
   };
 
   // Function to pause the progress
@@ -177,14 +160,13 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       )}
 
       {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
-      <div className="text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="text-blue-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="text-[120px]">
           {displayMinutes.toString().padStart(2, '0')}:
           {displaySeconds.toString().padEnd(2, '0')}
         </div>
-        <div className="text-[40px]">FOCUS</div>
-        Progress: {progress} | Current Time: {getCurrentTime} | Remaining Time:{' '}
-        {remainingTime}| Total Duration: {totalDuration}
+        <div className="text-[40px] text-blue-100">FOCUS</div>
+
         {/* Play/Pause Button */}
         {isPlaying ? (
           <AiFillPauseCircle

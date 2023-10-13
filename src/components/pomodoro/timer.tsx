@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
-import WaveComponent from './wave-component';
+import WaveComponent from './wave';
 
-const TimerComponent: React.FC = () => {
+const Timer: React.FC = () => {
   const calculateTime = (minutes: number, seconds: number) => {
     const totalDuration = minutes * 60 + seconds;
     return totalDuration;
@@ -220,4 +220,4 @@ const TimerComponent: React.FC = () => {
   );
 };
 
-export default TimerComponent;
+export default Timer;

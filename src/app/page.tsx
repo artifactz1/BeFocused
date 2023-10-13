@@ -1,14 +1,12 @@
-import TimerComponent from "../components/timer-component";
-
-import { Lato, Roboto_Mono } from "next/font/google";
+import { Lato, Roboto_Mono } from 'next/font/google';
 
 const lato = Lato({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic']
 });
 
-import RainComponent from "../components/rain-component";
+import Pomodoro from '../components/pomodoro/pomodoro';
 
 export default function Home() {
   // Set the duration of the timer (in seconds)
@@ -19,8 +17,7 @@ export default function Home() {
   return (
     <main style={lato.style}>
       <div className="flex flex-row h-screen bg-blue-400">
-        <RainComponent />
-        <TimerComponent />
+        <Pomodoro />
       </div>
     </main>
   );

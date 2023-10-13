@@ -15,8 +15,8 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
     return totalDuration;
   };
 
-  const initialMinutes = 25;
-  const initialSeconds = 0;
+  const initialMinutes = 0;
+  const initialSeconds = 10;
 
   // Convert the total duration to seconds
   const totalDuration = calculateTime(initialMinutes, initialSeconds);
@@ -29,6 +29,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
   const [remainingTime, setRemainingTime] = useState(getCurrentTime);
   const [screenHeight, setScreenHeight] = useState(0);
+  const [originalProgress, setOriginalProgress] = useState(100);
 
   // Format the remaining time in minutes and seconds
   const displayMinutes = Math.floor(remainingTime / 60);
@@ -43,7 +44,9 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       if (isPlaying) {
         currentTime -= 1;
         const newProgress = (currentTime / getCurrentTime) * 100;
-        setProgress(newProgress);
+        setProgress(
+          Math.max(0, Math.floor(newProgress + originalProgress - 100))
+        );
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
         if (currentTime <= 0) {
@@ -64,7 +67,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       clearInterval(timerInterval);
       window.removeEventListener('resize', handleResize);
     };
-  }, [totalDuration, isPlaying]);
+  }, [totalDuration, isPlaying, originalProgress]);
 
   // Calculate the position of the wave component
   const wavePosition = (progress / 100) * screenHeight;
@@ -117,16 +120,17 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
     //   setIsPlaying(true);
     //   setHasPlaying(true);
     // }
-
-    setRemainingTime(getCurrentTime);
-    setProgress(100);
+    setOriginalProgress(progress);
+    setProgress(progress);
     setIsPlaying(true);
     setHasPlaying(true);
   };
 
-  // Function to pause the timer
+  // Function to pause the progress
   const pauseTimer = () => {
+    setCurrentTime(getCurrentTime);
     setIsPlaying(false);
+    setProgress(progress);
   };
 
   // Function to reset the timer
@@ -178,8 +182,9 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           {displayMinutes.toString().padStart(2, '0')}:
           {displaySeconds.toString().padEnd(2, '0')}
         </div>
-
         <div className="text-[40px]">FOCUS</div>
+        Progress: {progress} | Current Time: {getCurrentTime} | Remaining Time:{' '}
+        {remainingTime}| Total Duration: {totalDuration}
         {/* Play/Pause Button */}
         {isPlaying ? (
           <AiFillPauseCircle

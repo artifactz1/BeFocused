@@ -1,17 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../styles/rain.css'; // Import the CSS file
+import { motion } from 'framer-motion';
 
-const droplets = 500;
-
-const Rain = () => {
+const Rain = ({ droplets }: { droplets: number }) => {
   const generateRandomValue = () => Math.random() * 100;
   const generateRandomFloat = () => Math.random();
   const generateRandomSignedFloat = () => Math.random() * 2 - 1;
 
   return (
-    // I added a margin top because there was this animation on the top where all the droplets would show
     <div className="-mt-[30px]">
       {Array.from({ length: droplets }).map((_, index) => (
         <svg
@@ -20,7 +18,7 @@ const Rain = () => {
           style={
             {
               '--x': `${generateRandomValue()}`, // Spread on the entire width
-              '--y': `${generateRandomValue() * 100}vh`, // Spread on the entire height
+              '--y': `${generateRandomValue() * -10}vh`, // Start from the top and go down to 100vh
               '--o': generateRandomFloat(),
               '--a': generateRandomFloat() + 0.5,
               '--d': generateRandomSignedFloat(),

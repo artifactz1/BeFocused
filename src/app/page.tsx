@@ -7,11 +7,14 @@ const lato = Lato({
 });
 
 import PomoTimer from './components/pomo-timer';
+import { TimerProvider } from './context/timer-provider';
 
 export default function Home() {
   return (
     <main style={lato.style}>
-      <PomoTimer />
+      <TimerProvider>
+        <PomoTimer />
+      </TimerProvider>
     </main>
   );
 }

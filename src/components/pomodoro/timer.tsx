@@ -54,7 +54,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           console.log('Timer has completed!');
           setIsPlaying(false);
           clearInterval(timerInterval);
-          resetTimer();
+          // resetTimer();
         }
       }
     }, 1000);
@@ -104,8 +104,14 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
 
   // Function to start the timer
   const startTimer = () => {
-    setOriginalProgress(progress);
-    setProgress(progress);
+    if (progress <= 0) {
+      console.log('Timer has completed!');
+      // clearInterval(timerInterval);
+      resetTimer();
+    } else {
+      setOriginalProgress(progress);
+      setProgress(progress);
+    }
     setIsPlaying(true);
   };
 

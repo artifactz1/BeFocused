@@ -1,205 +1,222 @@
+"use client";
 
-// import React, { useState, useEffect } from "react";
-import TimerVisualComponent from "./timer-visual-component";
-import DisplayTimerComponent from "./display-component";
-import TimeInputComponent from "./time-input-component";
+import React, { useState, useEffect } from "react";
+import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
+import RainEffect from "./rain-component";
+import WaveComponent from "./wave-component";
 
-// const TimerComponent: React.FC = () => {
-//   // Client-side logic for TimerComponent
-//   // Uses React and components above
-
-//   const calculateTime = (minutes: number, seconds: number) => {
-//     const totalDuration = minutes * 60 + seconds;
-//     return totalDuration;
-//   };
-
-//   const initialMinutes = 25;
-//   const initialSeconds = 0;
-
-//   // Convert the total duration to seconds
-//   const totalDuration = calculateTime(initialMinutes, initialSeconds);
-
-//   const [progress, setProgress] = useState(100);
-//   const [isPlaying, setIsPlaying] = useState(false);
-//   const [hasPlayed, setHasPlaying] = useState(false);
-//   const [inputMinutes, setInputMinutes] = useState(initialMinutes.toString());
-//   const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
-//   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
-//   const [remainingTime, setRemainingTime] = useState(getCurrentTime);
-//   // const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
-//   const [screenHeight, setScreenHeight] = useState(0);
-
-//   // Format the remaining time in minutes and seconds
-//   const displayMinutes = Math.floor(remainingTime / 60);
-//   const displaySeconds = remainingTime % 60;
-
-//   useEffect(() => {
-//     setScreenHeight(window.innerHeight); // Set initial value after component mount
-
-//     let currentTime = getCurrentTime;
-
-//     const timerInterval = setInterval(() => {
-//       if (isPlaying) {
-//         currentTime -= 1;
-//         const newProgress = (currentTime / getCurrentTime) * 100;
-//         setProgress(newProgress);
-//         setRemainingTime(currentTime);
-//         setCurrentTime(currentTime);
-//         if (currentTime <= 0) {
-//           console.log("Timer has completed!");
-//           setIsPlaying(false);
-//           clearInterval(timerInterval);
-//         }
-//       }
-//     }, 1000);
-
-//     const handleResize = () => {
-//       setScreenHeight(window.innerHeight);
-//     };
-
-//     window.addEventListener("resize", handleResize);
-
-//     return () => {
-//       clearInterval(timerInterval);
-//       window.removeEventListener("resize", handleResize);
-//     };
-//   }, [totalDuration, isPlaying]);
-
-//   // Calculate the position of the wave component
-//   const wavePosition = (progress / 100) * screenHeight;
-
-//   const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     // Client-side logic for handling time input
-//   };
-
-//   const startTimer = () => {
-//     // Client-side logic for starting the timer
-//   };
-
-//   const pauseTimer = () => {
-//     // Client-side logic for pausing the timer
-//   };
-
-//   const resetTimer = () => {
-//     // Client-side logic for resetting the timer
-//   };
-
-  // ==========================================================================================================
-  
 const TimerComponent: React.FC = () => {
-
-  const calculateTime = (minutes: number, seconds: number): number => {
-    const totalDuration: number = minutes * 60 + seconds;
+  const calculateTime = (minutes: number, seconds: number) => {
+    const totalDuration = minutes * 60 + seconds;
     return totalDuration;
   };
- 
 
-  const initialMinutes: number = 25;
-  const initialSeconds: number = 0;
-  
-  let totalDuration = calculateTime(initialMinutes, initialSeconds)  
+  const initialMinutes = 25;
+  const initialSeconds = 0;
 
-  let progress: number = 100;
-  let isPlaying: boolean = false;
-  let hasPlayed: boolean = false;
-  let inputMinutes: string = initialMinutes.toString();
-  let inputSeconds: string = initialSeconds.toString();
-  let getCurrentTime: number = totalDuration;
-  let remainingTime: number = getCurrentTime;
-  let screenHeight: number = (window as any).innerHeight;
-  // let screenHeight: number = 0;
-  
-  const displayMinutes: number = Math.floor(remainingTime / 60);
-  const displaySeconds: number = remainingTime % 60;
+  // Convert the total duration to seconds
+  const totalDuration = calculateTime(initialMinutes, initialSeconds);
 
-  
+  const [progress, setProgress] = useState(100);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasPlayed, setHasPlaying] = useState(false);
+  const [inputMinutes, setInputMinutes] = useState(initialMinutes.toString());
+  const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
+  const [getCurrentTime, setCurrentTime] = useState(totalDuration);
+  const [remainingTime, setRemainingTime] = useState(getCurrentTime);
+  // const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
+  const [screenHeight, setScreenHeight] = useState(0);
+
+  // Format the remaining time in minutes and seconds
+  const displayMinutes = Math.floor(remainingTime / 60);
+  const displaySeconds = remainingTime % 60;
+
+  useEffect(() => {
+    setScreenHeight(window.innerHeight); // Set initial value after component mount
+
+    let currentTime = getCurrentTime;
+
+    const timerInterval = setInterval(() => {
+      if (isPlaying) {
+        currentTime -= 1;
+        const newProgress = (currentTime / getCurrentTime) * 100;
+        setProgress(newProgress);
+        setRemainingTime(currentTime);
+        setCurrentTime(currentTime);
+        if (currentTime <= 0) {
+          console.log("Timer has completed!");
+          setIsPlaying(false);
+          clearInterval(timerInterval);
+        }
+      }
+    }, 1000);
+
+    const handleResize = () => {
+      setScreenHeight(window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      clearInterval(timerInterval);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [totalDuration, isPlaying]);
+
+  // Calculate the position of the wave component
   const wavePosition = (progress / 100) * screenHeight;
 
-  const handleResize = (): void => {
-    screenHeight = window.innerHeight;
-  };
-  
-  const timerInterval = setInterval(() => {
-    if (isPlaying) {
-      getCurrentTime -= 1;
-      const newProgress: number = (getCurrentTime / totalDuration) * 100;
-      progress = newProgress;
-      remainingTime = getCurrentTime;
-      if (getCurrentTime <= 0) {
-        console.log("Timer has completed!");
-        isPlaying = false;
-        clearInterval(timerInterval);
-      }
-    }
-  }, 1000);
-  
-  window.addEventListener("resize", handleResize);
-  
-  const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  // Function to handle user input for time
+  const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "minutes") {
       console.log("checkMIN", value);
       if (value == null || value == undefined) {
-        inputMinutes = "0";
+        setInputMinutes("0");
       } else {
-        inputMinutes = value;
+        setInputMinutes(value);
       }
     } else if (name === "seconds") {
       console.log("checkSec", value);
-      if (value === null || value === undefined || parseInt(value) > 59) {
-        inputMinutes = "0";
+      if (
+        value === null ||
+        value === undefined ||
+        parseInt(value.toString()) > 59
+      ) {
+        setInputMinutes("0");
       } else if (value.toString().length > 2) {
-        inputMinutes = value.toString().substring(0, 2);
+        setInputMinutes(value.toString().substring(0, 2));
       } else if (value == "0") {
-        inputMinutes = "0";
+        setInputMinutes("0");
       } else {
-        inputSeconds = value;
+        setInputSeconds(value);
       }
     }
     console.log(inputMinutes);
     console.log(inputSeconds);
+
+    // const minutes = parseInt(inputMinutes);
+    // const seconds = parseInt(inputSeconds);
+    // const newTotalDuration = calculateTime(minutes, seconds);
+    // setRemainingTime(newTotalDuration);
+
+    // resetTimer();
   };
-  
-  const startTimer = (): void => {
-    remainingTime = getCurrentTime;
-    progress = 100;
-    isPlaying = true;
-    hasPlayed = true;
+
+  // Function to start the timer
+  const startTimer = () => {
+    // if (hasPlayed === false) {
+    //   const minutes = parseInt(inputMinutes);
+    //   const seconds = parseInt(inputSeconds);
+    //   const newTotalDuration = calculateTime(minutes, seconds);
+    //   setRemainingTime(newTotalDuration);
+    //   setProgress(100);
+    //   setIsPlaying(true);
+    //   setHasPlaying(true);
+    // }
+
+    setRemainingTime(getCurrentTime);
+    setProgress(100);
+    setIsPlaying(true);
+    setHasPlaying(true);
   };
-  
-  const pauseTimer = (): void => {
-    isPlaying = false;
+
+  // Function to pause the timer
+  const pauseTimer = () => {
+    setIsPlaying(false);
   };
-  
-  const resetTimer = (): void => {
+
+  // Function to reset the timer
+  const resetTimer = () => {
+    // handleTimeInput;
     const minutes = parseInt(inputMinutes);
     const seconds = parseInt(inputSeconds);
     const newTotalDuration = calculateTime(minutes, seconds);
-    remainingTime = newTotalDuration;
-    isPlaying = false;
-    remainingTime = calculateTime(parseInt(inputMinutes), parseInt(inputSeconds));
-    getCurrentTime = calculateTime(parseInt(inputMinutes), parseInt(inputSeconds));
-    progress = 100;
+    setRemainingTime(newTotalDuration);
+
+    setIsPlaying(false);
+    setRemainingTime(
+      calculateTime(parseInt(inputMinutes), parseInt(inputSeconds))
+    );
+    setCurrentTime(
+      calculateTime(parseInt(inputMinutes), parseInt(inputSeconds))
+    );
+    setProgress(100);
   };
-  
-  window.addEventListener("resize", handleResize);
-  
 
-
-  // ==========================================================================================================
   return (
     <div className="w-screen h-[calc(100dvh)]  md:h-screen">
-      <TimerVisualComponent progress={progress} wavePosition={wavePosition} />
-      <DisplayTimerComponent displayMinutes={displayMinutes} displaySeconds={displaySeconds} />
-      <TimeInputComponent
-        inputMinutes={inputMinutes}
-        inputSeconds={inputSeconds}
-        handleTimeInput={handleTimeInput}
-        resetTimer={resetTimer}
-        isPlaying={isPlaying}
-        startTimer={startTimer}
-        pauseTimer={pauseTimer}
+      {/* Timer Visual Component (Server) (Doesn't need React)===================================================================================== */}
+
+      <div
+        className="bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0 absolute"
+        style={{
+          transform: `scaleY(${1 - progress / 100 - 0.09})`,
+          transformOrigin: "bottom",
+        }}
       />
+
+      {/* Waves =========================================================================================== */}
+
+      <div
+        className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
+        style={{
+          transform: `translateY(${wavePosition}px)`,
+          transformOrigin: "bottom",
+        }}
+      >
+        <WaveComponent />
+      </div>
+
+      {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
+      <div className="text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="text-[120px]">
+          {displayMinutes.toString().padStart(2, "0")}:
+          {displaySeconds.toString().padEnd(2, "0")}
+        </div>
+
+        <div className="text-[40px]">FOCUS</div>
+        {/* Play/Pause Button */}
+        {isPlaying ? (
+          <AiFillPauseCircle
+            onClick={pauseTimer}
+            className="text-5xl  cursor-pointer px-2 py-1"
+          />
+        ) : (
+          <AiFillPlayCircle
+            onClick={startTimer}
+            className="text-5xl cursor-pointer px-2 py- 2"
+          />
+        )}
+      </div>
+
+      {/* Time Input Componenet (Client) (Needs React to use React) ======================================= */}
+      <div className="flex flex-row absolute bottom-4 left-4">
+        <input
+          type="number"
+          min="1"
+          name="minutes"
+          value={inputMinutes}
+          onChange={handleTimeInput}
+          className="border p-1 mr-1"
+        />
+        <span className="text-lg">:</span>
+        <input
+          type="number"
+          min="-1"
+          max="61"
+          name="seconds"
+          value={inputSeconds}
+          onChange={handleTimeInput}
+          className="border p-1 ml-1"
+        />
+        <button
+          onClick={resetTimer}
+          className="bg-blue-500 text-white px-2 py-1 ml-2"
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 };

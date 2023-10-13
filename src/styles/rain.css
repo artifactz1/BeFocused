@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #6c78a9;
+  background-color: #ffffff;
   display: flex;
   height: 100vh;
   margin: 0;
@@ -15,7 +15,8 @@ body {
 
 .rain__drop {
   animation-delay: calc(var(--d) * 1s);
-  animation-duration: calc(var(--a) * 3s);
+  /* Change the value to increase rain speed */
+  animation-duration: calc(var(--a) * 5s);
   animation-iteration-count: infinite;
   animation-name: drop;
   animation-timing-function: linear;
@@ -28,7 +29,7 @@ body {
 .rain__drop path {
   fill: #a1c6cc;
   opacity: var(--o);
-  /* Change the value to increase rain speed */
+  /* Change the value to increase rain size */
   transform: scaleY(calc(var(--s) * 4));
 }
 

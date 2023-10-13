@@ -1,6 +1,4 @@
-
 import TimerComponent from "../components/timer-component";
-import ClientComponent from "../components/client-component";
 
 import { Lato, Roboto_Mono } from "next/font/google";
 
@@ -22,7 +20,7 @@ export default function Home() {
 
   return (
     <main style={lato.style}>
-      <div className="flex flex-row h-screen">
+      <div className="flex flex-row h-screen bg-blue-400">
         <RainComponent />
         <TimerComponent />
       </div>

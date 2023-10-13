@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
-import RainEffect from "./rain-component";
 import WaveComponent from "./wave-component";
+import SettingsComponent from "./settings-component";
 
 const TimerComponent: React.FC = () => {
   const calculateTime = (minutes: number, seconds: number) => {
@@ -200,8 +200,10 @@ const TimerComponent: React.FC = () => {
           onChange={handleTimeInput}
           className="border p-1 mr-1"
         />
-        <span className="text-lg">:</span>
-        <input
+
+        {/* Seconds Input */}
+        {/* <span className="text-lg">:</span> */}
+        {/* <input
           type="number"
           min="-1"
           max="61"
@@ -209,14 +211,16 @@ const TimerComponent: React.FC = () => {
           value={inputSeconds}
           onChange={handleTimeInput}
           className="border p-1 ml-1"
-        />
+        /> */}
         <button
           onClick={resetTimer}
           className="bg-blue-500 text-white px-2 py-1 ml-2"
         >
-          Reset
+          Save
         </button>
       </div>
+
+      <SettingsComponent></SettingsComponent>
     </div>
   );
 };

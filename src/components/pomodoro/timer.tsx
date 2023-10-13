@@ -4,7 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
 import WaveComponent from './wave';
 
-const Timer: React.FC = () => {
+interface Props {
+  isPlaying: boolean;
+  setIsPlaying: (isPLaying: boolean) => void;
+}
+
+const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const calculateTime = (minutes: number, seconds: number) => {
     const totalDuration = minutes * 60 + seconds;
     return totalDuration;
@@ -17,7 +22,7 @@ const Timer: React.FC = () => {
   const totalDuration = calculateTime(initialMinutes, initialSeconds);
 
   const [progress, setProgress] = useState(100);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
   const [hasPlayed, setHasPlaying] = useState(false);
   const [inputMinutes, setInputMinutes] = useState(initialMinutes.toString());
   const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());

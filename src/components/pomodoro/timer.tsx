@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
-import WaveComponent from './wave';
+import React, { useState, useEffect } from "react";
+import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
+import WaveComponent from "./wave";
 
 interface Props {
   isPlaying: boolean;
@@ -46,7 +46,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
         if (currentTime <= 0) {
-          console.log('Timer has completed!');
+          console.log("Timer has completed!");
           setIsPlaying(false);
           clearInterval(timerInterval);
         }
@@ -57,11 +57,11 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       setScreenHeight(window.innerHeight);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       clearInterval(timerInterval);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [totalDuration, isPlaying]);
 
@@ -71,25 +71,25 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   // Function to handle user input for time
   const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    if (name === 'minutes') {
-      console.log('checkMIN', value);
+    if (name === "minutes") {
+      console.log("checkMIN", value);
       if (value == null || value == undefined) {
-        setInputMinutes('0');
+        setInputMinutes("0");
       } else {
         setInputMinutes(value);
       }
-    } else if (name === 'seconds') {
-      console.log('checkSec', value);
+    } else if (name === "seconds") {
+      console.log("checkSec", value);
       if (
         value === null ||
         value === undefined ||
         parseInt(value.toString()) > 59
       ) {
-        setInputMinutes('0');
+        setInputMinutes("0");
       } else if (value.toString().length > 2) {
         setInputMinutes(value.toString().substring(0, 2));
-      } else if (value == '0') {
-        setInputMinutes('0');
+      } else if (value == "0") {
+        setInputMinutes("0");
       } else {
         setInputSeconds(value);
       }
@@ -99,7 +99,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   // Function to start the timer
   const startTimer = () => {
     if (progress <= 0) {
-      console.log('Timer has completed!');
+      console.log("Timer has completed!");
       resetTimer();
     } else {
       setProgress(progress);
@@ -140,7 +140,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
         className="bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0 absolute"
         style={{
           transform: `scaleY(${1 - progress / 100 - 0.09})`,
-          transformOrigin: 'bottom'
+          transformOrigin: "bottom",
         }}
       />
 
@@ -150,7 +150,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
           style={{
             transform: `translateY(${wavePosition}px)`,
-            transformOrigin: 'bottom'
+            transformOrigin: "bottom",
           }}
         >
           <WaveComponent />
@@ -160,11 +160,11 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
       <div className="text-blue-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="text-[120px]">
-          {displayMinutes.toString().padStart(2, '0')}:
-          {displaySeconds.toString().padEnd(2, '0')}
+          {displayMinutes.toString().padStart(2, "0")}:
+          {displaySeconds.toString().padStart(2, "0")}
         </div>
         <div className="text-[40px] text-blue-100">FOCUS</div>
-        Progress: {progress} | Current Time: {getCurrentTime} | Remaining Time:{' '}
+        Progress: {progress} | Current Time: {getCurrentTime} | Remaining Time:{" "}
         {remainingTime}| Total Duration: {totalDuration}
         {/* Play/Pause Button */}
         {/* Play/Pause Button */}

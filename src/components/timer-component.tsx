@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
 import WaveComponent from "./wave-component";
-import SettingsComponent from "./settings-component";
+import SettingsComponent from "./settings/settings-component";
 
 const TimerComponent: React.FC = () => {
   const calculateTime = (minutes: number, seconds: number) => {

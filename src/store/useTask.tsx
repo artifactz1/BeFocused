@@ -6,12 +6,14 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 interface Task {
   id: number;
+  completed: boolean;
   task: string;
 }
 
 interface Store {
   tasks: Task[];
   addTask: (task: string) => void;
+  toggleCompleted: (id: number) => void;
   removeTask: (id: number) => void;
 }
 
@@ -20,7 +22,19 @@ const useTask = persist<Store>(
     tasks: [],
     addTask: task =>
       set(state => ({
-        tasks: [...state.tasks, { id: Math.random() * 100, task: task }]
+        tasks: [
+          ...state.tasks,
+          { id: state.tasks.length + 1, completed: false, task: task }
+        ]
+      })),
+    toggleCompleted: id =>
+      set(state => ({
+        tasks: state.tasks.map(task => {
+          if (task.id === id) {
+            return { ...task, completed: !task.completed };
+          }
+          return task;
+        })
       })),
     removeTask: id =>
       set(state => ({
@@ -31,7 +45,7 @@ const useTask = persist<Store>(
     name: 'task-storage', // name of the item in the storage (must be unique)
     // (optional) by default, 'localStorage' is used
     // session to store for that session
-    storage: createJSONStorage(() => localStorage),
+    storage: createJSONStorage(() => sessionStorage),
     skipHydration: true
   }
 );

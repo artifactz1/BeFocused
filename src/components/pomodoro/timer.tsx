@@ -15,8 +15,8 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
     return totalDuration;
   };
 
-  const initialMinutes = 25;
-  const initialSeconds = 0;
+  const initialMinutes = 0;
+  const initialSeconds = 10;
 
   // Convert the total duration to seconds
   const [totalDuration, setTotalDuration] = useState(

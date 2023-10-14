@@ -27,7 +27,6 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
   const [remainingTime, setRemainingTime] = useState(getCurrentTime);
   const [screenHeight, setScreenHeight] = useState(0);
-  const [originalProgress, setOriginalProgress] = useState(100);
 
   // Format the remaining time in minutes and seconds
   const displayMinutes = Math.floor(remainingTime / 60);
@@ -41,20 +40,15 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
     const timerInterval = setInterval(() => {
       if (isPlaying) {
         currentTime -= 1;
-        const newProgress = (currentTime / getCurrentTime) * 100;
-
-        setProgress(
-          Math.max(0, Math.floor(newProgress + originalProgress - 100))
-        );
-
+        const newProgress =
+          ((totalDuration - currentTime) / totalDuration) * 100;
+        setProgress(Math.max(0, 100 - newProgress));
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
-
         if (currentTime <= 0) {
           console.log('Timer has completed!');
           setIsPlaying(false);
           clearInterval(timerInterval);
-          // resetTimer();
         }
       }
     }, 1000);
@@ -69,7 +63,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       clearInterval(timerInterval);
       window.removeEventListener('resize', handleResize);
     };
-  }, [totalDuration, isPlaying, originalProgress]);
+  }, [totalDuration, isPlaying]);
 
   // Calculate the position of the wave component
   const wavePosition = (progress / 100) * screenHeight;
@@ -106,10 +100,8 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const startTimer = () => {
     if (progress <= 0) {
       console.log('Timer has completed!');
-      // clearInterval(timerInterval);
       resetTimer();
     } else {
-      setOriginalProgress(progress);
       setProgress(progress);
     }
     setIsPlaying(true);
@@ -172,7 +164,9 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           {displaySeconds.toString().padEnd(2, '0')}
         </div>
         <div className="text-[40px] text-blue-100">FOCUS</div>
-
+        Progress: {progress} | Current Time: {getCurrentTime} | Remaining Time:{' '}
+        {remainingTime}| Total Duration: {totalDuration}
+        {/* Play/Pause Button */}
         {/* Play/Pause Button */}
         {isPlaying ? (
           <AiFillPauseCircle

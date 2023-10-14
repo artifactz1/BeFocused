@@ -154,7 +154,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       <div className="text-blue-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="text-[120px]">
           {displayMinutes.toString().padStart(2, "0")}:
-          {displaySeconds.toString().padEnd(2, "0")}
+          {displaySeconds.toString().padStart(2, "0")}
         </div>
         <div className="text-[40px] text-blue-100">FOCUS</div>
         Progress: {progress} | Current Time: {getCurrentTime} | Remaining Time:{" "}

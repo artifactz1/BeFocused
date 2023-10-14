@@ -14,6 +14,8 @@ const TimerComponent: React.FC = () => {
   const initialMinutes = 25;
   const initialSeconds = 0;
 
+  const [isButtonToggled, setIsButtonToggled] = useState(false);
+
   // Convert the total duration to seconds
   const totalDuration = calculateTime(initialMinutes, initialSeconds);
 
@@ -220,7 +222,22 @@ const TimerComponent: React.FC = () => {
         </button>
       </div>
 
-      <SettingsComponent></SettingsComponent>
+      <div>
+        <button
+          onClick={() => setIsButtonToggled(!isButtonToggled)}
+          className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Toggle Button
+        </button>
+
+        <div
+          className={`transition-all duration-300 ${
+            isButtonToggled ? "opacity-100" : "opacity-0"
+          } mt-4 p-4 rounded`}
+        >
+          <SettingsComponent />
+        </div>
+      </div>
     </div>
   );
 };

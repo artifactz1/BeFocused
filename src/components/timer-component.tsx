@@ -14,8 +14,6 @@ const TimerComponent: React.FC = () => {
   const initialMinutes = 25;
   const initialSeconds = 0;
 
-  const [isButtonToggled, setIsButtonToggled] = useState(false);
-
   // Convert the total duration to seconds
   const totalDuration = calculateTime(initialMinutes, initialSeconds);
 
@@ -23,7 +21,6 @@ const TimerComponent: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasPlayed, setHasPlaying] = useState(false);
   const [inputMinutes, setInputMinutes] = useState(initialMinutes.toString());
-  const [inputSeconds, setInputSeconds] = useState(initialSeconds.toString());
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
   const [remainingTime, setRemainingTime] = useState(getCurrentTime);
   // const [screenHeight, setScreenHeight] = useState(() => window.innerHeight);
@@ -32,6 +29,22 @@ const TimerComponent: React.FC = () => {
   // Format the remaining time in minutes and seconds
   const displayMinutes = Math.floor(remainingTime / 60);
   const displaySeconds = remainingTime % 60;
+
+  const [isButtonToggled, setIsButtonToggled] = useState(false);
+  const [totalShortBreak, setTotalShortBreak] = useState(5);
+  const [totalLongBreak, setTotalLongBreak] = useState(15);
+  const [totalRounds, setTotalRounds] = useState(4);
+
+  const [savedValues, setSavedValues] = useState<any>(null);
+  const handleSave = (values: any) => {
+    // Do something with the saved values, e.g., make an API call, update state, etc.
+    console.log("Received values in parent:", values);
+    setSavedValues(values);
+    setInputMinutes("{savedValues.focus}");
+    setTotalShortBreak(savedValues.shortBreak);
+    setTotalLongBreak(savedValues.longBreak);
+    setTotalRounds(savedValues.rounds);
+  };
 
   useEffect(() => {
     setScreenHeight(window.innerHeight); // Set initial value after component mount
@@ -90,33 +103,12 @@ const TimerComponent: React.FC = () => {
         setInputMinutes(value.toString().substring(0, 2));
       } else if (value == "0") {
         setInputMinutes("0");
-      } else {
-        setInputSeconds(value);
       }
     }
-    console.log(inputMinutes);
-    console.log(inputSeconds);
-
-    // const minutes = parseInt(inputMinutes);
-    // const seconds = parseInt(inputSeconds);
-    // const newTotalDuration = calculateTime(minutes, seconds);
-    // setRemainingTime(newTotalDuration);
-
-    // resetTimer();
   };
 
   // Function to start the timer
   const startTimer = () => {
-    // if (hasPlayed === false) {
-    //   const minutes = parseInt(inputMinutes);
-    //   const seconds = parseInt(inputSeconds);
-    //   const newTotalDuration = calculateTime(minutes, seconds);
-    //   setRemainingTime(newTotalDuration);
-    //   setProgress(100);
-    //   setIsPlaying(true);
-    //   setHasPlaying(true);
-    // }
-
     setRemainingTime(getCurrentTime);
     setProgress(100);
     setIsPlaying(true);
@@ -132,17 +124,13 @@ const TimerComponent: React.FC = () => {
   const resetTimer = () => {
     // handleTimeInput;
     const minutes = parseInt(inputMinutes);
-    const seconds = parseInt(inputSeconds);
+    const seconds = parseInt("0");
     const newTotalDuration = calculateTime(minutes, seconds);
     setRemainingTime(newTotalDuration);
 
     setIsPlaying(false);
-    setRemainingTime(
-      calculateTime(parseInt(inputMinutes), parseInt(inputSeconds))
-    );
-    setCurrentTime(
-      calculateTime(parseInt(inputMinutes), parseInt(inputSeconds))
-    );
+    setRemainingTime(calculateTime(parseInt(inputMinutes), 0));
+    setCurrentTime(calculateTime(parseInt(inputMinutes), 0));
     setProgress(100);
   };
 
@@ -190,6 +178,8 @@ const TimerComponent: React.FC = () => {
             className="text-5xl cursor-pointer px-2 py- 2"
           />
         )}
+
+        <div>Input Time: {inputMinutes}</div>
       </div>
 
       {/* Time Input Componenet (Client) (Needs React to use React) ======================================= */}
@@ -203,17 +193,6 @@ const TimerComponent: React.FC = () => {
           className="border p-1 mr-1"
         />
 
-        {/* Seconds Input */}
-        {/* <span className="text-lg">:</span> */}
-        {/* <input
-          type="number"
-          min="-1"
-          max="61"
-          name="seconds"
-          value={inputSeconds}
-          onChange={handleTimeInput}
-          className="border p-1 ml-1"
-        /> */}
         <button
           onClick={resetTimer}
           className="bg-blue-500 text-white px-2 py-1 ml-2"
@@ -235,7 +214,7 @@ const TimerComponent: React.FC = () => {
             isButtonToggled ? "opacity-100" : "opacity-0"
           } mt-4 p-4 rounded`}
         >
-          <SettingsComponent />
+          <SettingsComponent onSave={handleSave} resetTimer={resetTimer} />
         </div>
       </div>
     </div>

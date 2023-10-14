@@ -7,6 +7,7 @@ const lato = Lato({
 });
 
 import Pomodoro from '../components/pomodoro/pomodoro';
+import Task from '@/components/task/task';
 
 export default function Home() {
   // Set the duration of the timer (in seconds)
@@ -16,9 +17,8 @@ export default function Home() {
 
   return (
     <main style={lato.style}>
-      <div className="flex flex-row h-screen bg-blue-400">
-        <Pomodoro />
-      </div>
+      {/* <Pomodoro /> */}
+      <Task />
     </main>
   );
 }

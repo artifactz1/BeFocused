@@ -7,7 +7,7 @@ const lato = Lato({
 });
 
 import Pomodoro from "../components/pomodoro/pomodoro";
-// import Task from "@/components/task/task";
+// import Task from '@/components/task/task';
 
 export default function Home() {
   // Set the duration of the timer (in seconds)

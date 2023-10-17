@@ -36,15 +36,11 @@ const TimerComponent: React.FC = () => {
   const [totalRounds, setTotalRounds] = useState(4);
 
   const [savedValues, setSavedValues] = useState<any>(null);
-  const handleSave = (values: any) => {
-    // Do something with the saved values, e.g., make an API call, update state, etc.
-    console.log("Received values in parent:", values);
-    setSavedValues(values);
-    setInputMinutes("{savedValues.focus}");
-    setTotalShortBreak(savedValues.shortBreak);
-    setTotalLongBreak(savedValues.longBreak);
-    setTotalRounds(savedValues.rounds);
-  };
+  const [settingChange, setSettingsChange] = useState(false);
+
+  useEffect(() => {
+    resetTimer();
+  }, [inputMinutes]);
 
   useEffect(() => {
     setScreenHeight(window.innerHeight); // Set initial value after component mount
@@ -134,6 +130,23 @@ const TimerComponent: React.FC = () => {
     setProgress(100);
   };
 
+  const handleSave = (values: any) => {
+    // Do something with the saved values, e.g., make an API call, update state, etc.
+    console.log("Received values in parent:", values);
+    // setSavedValues(values);
+    // setInputMinutes(savedValues.focus);
+    // setTotalShortBreak(savedValues.shortBreak);
+    // setTotalLongBreak(savedValues.longBreak);
+    // setTotalRounds(savedValues.rounds);
+
+    setInputMinutes(values.focus); // Use values.focus directly
+    resetTimer();
+    setTotalShortBreak(values.shortBreak);
+    setTotalLongBreak(values.longBreak);
+    setTotalRounds(values.rounds);
+    setSavedValues(values); // Set savedValues after updating individual states
+  };
+
   return (
     <div className="w-screen h-[calc(100dvh)]  md:h-screen">
       {/* Timer Visual Component (Server) (Doesn't need React)===================================================================================== */}
@@ -179,7 +192,10 @@ const TimerComponent: React.FC = () => {
           />
         )}
 
-        <div>Input Time: {inputMinutes}</div>
+        <div>
+          Input Time: {inputMinutes} | Short Break: {totalShortBreak} | Long
+          Break: {totalLongBreak} | Rounds: {totalRounds}
+        </div>
       </div>
 
       {/* Time Input Componenet (Client) (Needs React to use React) ======================================= */}
@@ -214,7 +230,7 @@ const TimerComponent: React.FC = () => {
             isButtonToggled ? "opacity-100" : "opacity-0"
           } mt-4 p-4 rounded`}
         >
-          <SettingsComponent onSave={handleSave} resetTimer={resetTimer} />
+          <SettingsComponent onSave={handleSave} />
         </div>
       </div>
     </div>

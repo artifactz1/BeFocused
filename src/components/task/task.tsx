@@ -62,7 +62,7 @@ const Task = () => {
           <h1 className="font-bold">{dayName}</h1>
         </div>
 
-        <ul className="mb-10">
+        <ul className="mb-10 h-[150px] overflow-auto">
           <AnimatePresence>
             {tasks.map(task => (
               <motion.li

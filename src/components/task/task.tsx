@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import useTask from '@/store/useTask';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Task = () => {
   useEffect(() => {
@@ -19,6 +20,10 @@ const Task = () => {
       addTask(task);
       setTask('');
     }
+  };
+
+  const handleRemoveTask = (id: number) => {
+    removeTask(id);
   };
 
   const date = new Date(); // Create a Date object for the current date
@@ -57,14 +62,17 @@ const Task = () => {
           <h1 className="font-bold">{dayName}</h1>
         </div>
 
-        {tasks.length > 0 && (
-          <ul className="mb-10">
+        <ul className="mb-10">
+          <AnimatePresence>
             {tasks.map(task => (
-              <>
-                <li
-                  key={task.id}
-                  className="flex flex-row justify-between gap-x-2"
-                >
+              <motion.li
+                key={task.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <li className="flex flex-row justify-between gap-x-2">
                   <label className="flex items-center space-x-2">
                     <input
                       type="checkbox"
@@ -83,7 +91,7 @@ const Task = () => {
                       {task.task}
                     </span>
                   </label>
-                  <button onClick={() => removeTask(task.id)}>
+                  <button onClick={() => handleRemoveTask(task.id)}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -100,10 +108,10 @@ const Task = () => {
                     </svg>
                   </button>
                 </li>
-              </>
+              </motion.li>
             ))}
-          </ul>
-        )}
+          </AnimatePresence>
+        </ul>
         <section className="border rounded-md p-2 flex flex-row space-x-5">
           <button className="flex flex-row" onClick={handleAddTask}>
             <svg

@@ -116,11 +116,16 @@ const Task = () => {
                           style={{
                             position: "relative",
                             bottom: "11px",
+                            // marginBottom: "5", // Adjust this value as needed
                             marginTop: "5", // Adjust this value as needed
-                            width: "100%",
+                            // width: "100%",
+
                             height: "1px", // Adjust the line height as needed
                             backgroundColor: "gray", // Adjust the line color as needed
                           }}
+                          //   initial={{ width: 0 }}
+                          //   animate={{ width: "100%" }}
+                          //   transition={{ duration: 0.5 }}
                           initial={{ width: task.completed ? "0%" : "100%" }}
                           animate={{ width: task.completed ? "100%" : "0%" }}
                           transition={{ duration: 1 }}

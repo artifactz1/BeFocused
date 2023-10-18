@@ -4,6 +4,24 @@ import React, { useEffect, useState } from "react";
 import useTask from "@/store/useTask";
 import { AnimatePresence, motion } from "framer-motion";
 
+// .line-through-animation {
+//     position: absolute;
+//     left: 0;
+//     top: 50%;
+//     width: 100%;
+//     height: 1px; /* Adjust the line height as needed */
+//     background-color: gray; /* Adjust the line color as needed */
+//   }
+
+const lineThroughAnimationStyle = {
+  position: "absolute",
+  left: 0,
+  top: "50%",
+  width: "100%",
+  height: "1px", // Adjust the line height as needed
+  backgroundColor: "gray", // Adjust the line color as needed
+};
+
 const Task = () => {
   useEffect(() => {
     useTask.persist.rehydrate();
@@ -81,6 +99,42 @@ const Task = () => {
                       onChange={() => toggleCompleted(task.id)}
                     />
 
+                    <motion.span className="text-gray-700">
+                      {task.task}
+                      {task.completed && (
+                        <motion.div
+                          className=""
+                          //   style={{
+                          //     position: "absolute",
+                          //     left: 0,
+                          //     top: "50%",
+                          //     width: "100%",
+                          //     height: "1px", // Adjust the line height as needed
+                          //     backgroundColor: "gray", // Adjust the line color as needed
+                          //   }}
+
+                          style={{
+                            position: "relative",
+                            bottom: "11px",
+                            marginTop: "5", // Adjust this value as needed
+                            width: "100%",
+                            height: "1px", // Adjust the line height as needed
+                            backgroundColor: "gray", // Adjust the line color as needed
+                          }}
+                          initial={{ width: task.completed ? "0%" : "100%" }}
+                          animate={{ width: task.completed ? "100%" : "0%" }}
+                          transition={{ duration: 1 }}
+                        />
+                      )}
+                    </motion.span>
+
+                    {/* <input
+                      type="checkbox"
+                      className="text-indigo-600 h-5 w-5"
+                      checked={task.completed}
+                      onChange={() => toggleCompleted(task.id)}
+                    />
+
                     <span
                       className={
                         task.completed
@@ -90,6 +144,17 @@ const Task = () => {
                     >
                       {task.task}
                     </span>
+
+                    <motion.span
+                      className={
+                        task.completed
+                          ? "line-through text-gray-500"
+                          : "text-gray-700"
+                      }
+                      initial={task.completed ? { width: 0 } : {}}
+                      animate={task.completed ? { width: "100%" } : {}}
+                      transition={{ duration: 0.5 }}
+                    ></motion.span> */}
                   </label>
                   <button onClick={() => handleRemoveTask(task.id)}>
                     <svg

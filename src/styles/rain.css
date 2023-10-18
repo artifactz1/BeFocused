@@ -13,6 +13,13 @@ body {
   overflow: hidden; /* Prevent vertical scrollbar */
 }
 
+.rain-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
 .rain__drop {
   animation-delay: calc(var(--d) * 1s);
   /* Change the value to increase rain speed */

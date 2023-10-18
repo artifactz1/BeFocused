@@ -8,13 +8,16 @@ const lato = Lato({
 
 import Pomodoro from '@/components/pomodoro/pomodoro';
 import Task from '@/components/task/task';
+import { Suspense } from 'react';
 
 export default function Home() {
   return (
     <main style={lato.style}>
-      <div className="flex flex-row">
-        <Task />
-        <Pomodoro />
+      <div className="flex flex-col md:flex-row ">
+        <Suspense fallback={<p>Loading feed...</p>}>
+          <Pomodoro />
+          <Task />
+        </Suspense>
       </div>
     </main>
   );

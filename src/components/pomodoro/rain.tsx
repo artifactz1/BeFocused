@@ -9,7 +9,7 @@ const Rain = () => {
 
   return (
     // I added a margin top because there was this animation on the top where all the droplets would show
-    <div className="-mt-[30px]">
+    <div className="-mt-[30px] w-full">
       {Array.from({ length: droplets }).map((_, index) => (
         <svg
           key={index}

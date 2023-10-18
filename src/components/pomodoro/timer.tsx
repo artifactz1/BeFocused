@@ -199,13 +199,14 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   };
 
   return (
-    <div className="h-[calc(100dvh)] md:h-screen w-full relative">
-      <div>
+    <div className="h-screen w-full relative overflow-hidden">
+      {/* <div>
         <div
           className="absolute bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0"
           style={{
             transform: `scaleY(${1 - progress / 100 - 0.09})`,
-            transformOrigin: 'bottom'
+            transformOrigin: 'bottom',
+            zIndex: 1 // Set a lower z-index
           }}
         />
 
@@ -214,24 +215,22 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
             className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
             style={{
               transform: `translateY(${wavePosition}px)`,
-              transformOrigin: 'bottom'
+              transformOrigin: 'bottom',
+              zIndex: 1 // Set a lower z-index
             }}
           >
             <WaveComponent />
           </div>
         )}
-      </div>
+      </div> */}
 
       {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
-      <div
-        className="text-blue-100 min-h-screen flex flex-col justify-center items-center"
-        style={{ zIndex: 9999 }}
-      >
+      <div className="text-blue-100 flex flex-col justify-center items-center h-screen z-10">
         <div className="text-[120px]">
           {displayMinutes.toString().padStart(2, '0')}:
           {displaySeconds.toString().padStart(2, '0')}
         </div>
-        <div className="text-[40px] text-blue-100">{roundType}</div>
+        <div className="text-[40px] text-blue-500">{roundType}</div>
         <div className="rounded-2xl">
           {currentRound} / {totalRounds} : ({overTimeRounds})
         </div>
@@ -262,7 +261,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
         )}
       </div>
 
-      <div className="absolute bottom-4 left-4">
+      <div className="absolute bottom-4 left-4 z-10">
         <div
           className={`transition-all duration-300 ${
             isButtonToggled ? 'opacity-100' : 'opacity-0'

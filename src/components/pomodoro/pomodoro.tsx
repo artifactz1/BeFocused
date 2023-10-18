@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Rain from './rain';
 import Timer from './timer';
-
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Pomodoro = () => {
@@ -11,6 +10,8 @@ const Pomodoro = () => {
 
   return (
     <div className="flex flex-row min-h-screen bg-blue-400 w-full">
+      {/* Create a container for Timer and Rain */}
+      <Timer isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
       {/* <AnimatePresence>
         {isPlaying && (
           <motion.div
@@ -23,7 +24,6 @@ const Pomodoro = () => {
           </motion.div>
         )}
       </AnimatePresence> */}
-      <Timer isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
     </div>
   );
 };

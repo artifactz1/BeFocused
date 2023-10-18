@@ -48,7 +48,7 @@ const Task = () => {
   const year = date.getFullYear();
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center h-screen w-full">
       <div className="rounded-xl p-10">
         <div className="flex flex-row items-center justify-between mb-10">
           <section className="flex flex-row items-center space-x-1">

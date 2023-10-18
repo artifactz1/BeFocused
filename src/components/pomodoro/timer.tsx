@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
-import WaveComponent from './wave';
-import SettingsComponent from './settings/settings';
+import React, { useState, useEffect } from "react";
+import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
+import WaveComponent from "./wave";
+import SettingsComponent from "./settings/settings";
 
 interface Props {
   isPlaying: boolean;
@@ -16,9 +16,9 @@ const Timer: React.FC<Props> = ({
   isPlaying,
   setIsPlaying,
   children,
-  className
+  className,
 }) => {
-  const combinedClassName = `default-classes ${className || ''}`;
+  const combinedClassName = `default-classes ${className || ""}`;
 
   const calculateTime = (minutes: number, seconds: number) => {
     const totalDuration = minutes * 60 + seconds;
@@ -53,7 +53,7 @@ const Timer: React.FC<Props> = ({
   const [toggleBreak, setToggleBreak] = useState(false);
 
   const [overTimeRounds, setOverTimeRounds] = useState(1);
-  const [roundType, setRoundType] = useState('FOCUS');
+  const [roundType, setRoundType] = useState("FOCUS");
 
   const [savedValues, setSavedValues] = useState<any>(null);
   const [counterRounds, setCounterRounds] = useState(0);
@@ -67,7 +67,7 @@ const Timer: React.FC<Props> = ({
     maxRound: number,
     overTimeRounds: number
   ) => {
-    console.log('round' + currentRound);
+    console.log("round" + currentRound);
 
     if (currentRound % maxRound === 0) {
       if (toggleBreak === false) {
@@ -93,7 +93,7 @@ const Timer: React.FC<Props> = ({
 
     switch (rType) {
       case 1:
-        setRoundType('FOCUS');
+        setRoundType("FOCUS");
         setInputMinutes(totalFocus.toString());
 
         if (currentRound + 1 > totalRounds) {
@@ -106,12 +106,12 @@ const Timer: React.FC<Props> = ({
         break;
 
       case 2:
-        setRoundType('SHORT BREAK');
+        setRoundType("SHORT BREAK");
         setInputMinutes(totalShortBreak.toString());
         break;
 
       case 3:
-        setRoundType('LONG BREAK');
+        setRoundType("LONG BREAK");
         setInputMinutes(totalLongBreak.toString());
     }
 
@@ -137,7 +137,7 @@ const Timer: React.FC<Props> = ({
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
         if (currentTime <= 0) {
-          console.log('Timer has completed!');
+          console.log("Timer has completed!");
           setIsPlaying(false);
           clearInterval(timerInterval);
           nextRound();
@@ -149,11 +149,11 @@ const Timer: React.FC<Props> = ({
       setScreenHeight(window.innerHeight);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       clearInterval(timerInterval);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [totalDuration, isPlaying]);
 
@@ -163,7 +163,7 @@ const Timer: React.FC<Props> = ({
   // Function to start the timer
   const startTimer = () => {
     if (progress <= 0) {
-      console.log('Timer has completed!');
+      console.log("Timer has completed!");
       resetTimer();
     } else {
       setProgress(progress);
@@ -192,13 +192,13 @@ const Timer: React.FC<Props> = ({
   };
 
   const handleSave = (values: any) => {
-    console.log('Received values in parent:', values);
+    console.log("Received values in parent:", values);
 
     setInputMinutes(values.focus); // Use values.focus directly
     setTotalFocus(values.focus);
     setCurrentRound(1);
     resetTimer();
-    setRoundType('FOCUS');
+    setRoundType("FOCUS");
 
     setTotalShortBreak(values.shortBreak);
     setTotalLongBreak(values.longBreak);
@@ -210,37 +210,39 @@ const Timer: React.FC<Props> = ({
   return (
     <>
       <div className={combinedClassName}>
-        <div className="h-screen w-full relative overflow-hidden">
-          {children}
-          <div className="-z-10">
-            <div
-              className="absolute bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0"
-              style={{
-                transform: `scaleY(${1 - progress / 100 - 0.09})`,
-                transformOrigin: 'bottom'
-              }}
-            />
+        <div className="h-screen w-full relative overflow-hidden z-0">
+          {/* Filler Component */}
+          <div
+            className="absolute bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0 "
+            style={{
+              transform: `scaleY(${1 - progress / 100 - 0.09})`,
+              transformOrigin: "bottom",
+            }}
+          />
 
-            {screenHeight !== 0 && (
-              <div
-                className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
-                style={{
-                  transform: `translateY(${wavePosition}px)`,
-                  transformOrigin: 'bottom'
-                }}
-              >
-                <WaveComponent />
-              </div>
-            )}
-          </div>
+          {/* Wave Component */}
+          {screenHeight !== 0 && (
+            <div
+              className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom "
+              style={{
+                transform: `translateY(${wavePosition}px)`,
+                transformOrigin: "bottom",
+              }}
+            >
+              <WaveComponent />
+            </div>
+          )}
+
+          {/* Rain Component */}
+          <div className="absolute top-0 left-0 w-full -z-10">{children}</div>
 
           {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
           {/* <div className="aboslute text-blue-500 left-4 bottom-0 z-20"> */}
 
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-100 z-20">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-100 z-30">
             <div className="text-[120px]">
-              {displayMinutes.toString().padStart(2, '0')}:
-              {displaySeconds.toString().padStart(2, '0')}
+              {displayMinutes.toString().padStart(2, "0")}:
+              {displaySeconds.toString().padStart(2, "0")}
             </div>
             <div className="text-[40px] text-blue-100">{roundType}</div>
             <div className="rounded-2xl">
@@ -276,7 +278,7 @@ const Timer: React.FC<Props> = ({
           <div className="absolute bottom-4 left-4 z-10">
             <div
               className={`transition-all duration-300 ${
-                isButtonToggled ? 'opacity-100' : 'opacity-0'
+                isButtonToggled ? "opacity-100" : "opacity-0"
               } mt-4 p-4 rounded`}
             >
               <SettingsComponent onSave={handleSave} />

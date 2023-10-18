@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import useTask from '@/store/useTask';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import useTask from "@/store/useTask";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Task = () => {
   useEffect(() => {
     useTask.persist.rehydrate();
   }, []);
 
-  const [task, setTask] = useState<string>('');
-  const tasks = useTask(state => state.tasks);
-  const addTask = useTask(state => state.addTask);
-  const toggleCompleted = useTask(state => state.toggleCompleted);
-  const removeTask = useTask(state => state.removeTask);
+  const [task, setTask] = useState<string>("");
+  const tasks = useTask((state) => state.tasks);
+  const addTask = useTask((state) => state.addTask);
+  const toggleCompleted = useTask((state) => state.toggleCompleted);
+  const removeTask = useTask((state) => state.removeTask);
 
   const handleAddTask = () => {
     if (task.length !== 0) {
       addTask(task);
-      setTask('');
+      setTask("");
     }
   };
 
@@ -27,20 +27,20 @@ const Task = () => {
   };
 
   const date = new Date(); // Create a Date object for the current date
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
   const dayNumber = date.getDate();
   const dayName = days[date.getDay()];
@@ -48,7 +48,7 @@ const Task = () => {
   const year = date.getFullYear();
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-full">
+    <div className="flex flex-col justify-center items-center h-screen w-screen md:w-full">
       <div className="rounded-xl p-10">
         <div className="flex flex-row items-center justify-between mb-10">
           <section className="flex flex-row items-center space-x-1">
@@ -64,7 +64,7 @@ const Task = () => {
 
         <ul className="mb-10 h-[150px] overflow-auto">
           <AnimatePresence>
-            {tasks.map(task => (
+            {tasks.map((task) => (
               <motion.li
                 key={task.id}
                 initial={{ opacity: 0 }}
@@ -84,8 +84,8 @@ const Task = () => {
                     <span
                       className={
                         task.completed
-                          ? 'line-through text-gray-500'
-                          : 'text-gray-700'
+                          ? "line-through text-gray-500"
+                          : "text-gray-700"
                       }
                     >
                       {task.task}
@@ -134,9 +134,9 @@ const Task = () => {
             placeholder="Add a task ..."
             value={task}
             className="outline-none"
-            onChange={e => setTask(e.target.value)}
-            onKeyDown={e => {
-              if (e.key === 'Enter') handleAddTask();
+            onChange={(e) => setTask(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleAddTask();
             }}
           />
         </section>

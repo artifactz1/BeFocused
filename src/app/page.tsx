@@ -14,10 +14,8 @@ export default function Home() {
   return (
     <main style={lato.style}>
       <div className="flex flex-col md:flex-row ">
-        <Suspense fallback={<p>Loading feed...</p>}>
           <Pomodoro />
           <Task />
-        </Suspense>
       </div>
     </main>
   );

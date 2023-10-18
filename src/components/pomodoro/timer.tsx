@@ -232,7 +232,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
         <div className="rounded-2xl">
           {currentRound} / {totalRounds} : ({overTimeRounds})
         </div>
-        <div className="mt-5">
+        {/* <div className="mt-5">
           Progress: {progress} | Current Time: {getCurrentTime} | Remaining
           Time: {remainingTime}| Total Duration: {totalDuration} | Input Minute
           : {inputMinutes} |
@@ -242,7 +242,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           : {totalRounds}| Current Round : {currentRound} | RoundType : | Max
           Round : {totalRounds}
           {roundType} |
-        </div>
+        </div> */}
 
         {/* Play/Pause Button */}
         {/* Play/Pause Button */}

@@ -70,7 +70,7 @@ const Task = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.7 }}
               >
                 <li className="flex flex-row justify-between gap-x-2">
                   <label className="flex items-center space-x-2">

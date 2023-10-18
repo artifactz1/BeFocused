@@ -1,24 +1,42 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import useTask from '@/store/useTask';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import useTask from "@/store/useTask";
+import { AnimatePresence, motion } from "framer-motion";
+
+// .line-through-animation {
+//     position: absolute;
+//     left: 0;
+//     top: 50%;
+//     width: 100%;
+//     height: 1px; /* Adjust the line height as needed */
+//     background-color: gray; /* Adjust the line color as needed */
+//   }
+
+const lineThroughAnimationStyle = {
+  position: "absolute",
+  left: 0,
+  top: "50%",
+  width: "100%",
+  height: "1px", // Adjust the line height as needed
+  backgroundColor: "gray", // Adjust the line color as needed
+};
 
 const Task = () => {
   useEffect(() => {
     useTask.persist.rehydrate();
   }, []);
 
-  const [task, setTask] = useState<string>('');
-  const tasks = useTask(state => state.tasks);
-  const addTask = useTask(state => state.addTask);
-  const toggleCompleted = useTask(state => state.toggleCompleted);
-  const removeTask = useTask(state => state.removeTask);
+  const [task, setTask] = useState<string>("");
+  const tasks = useTask((state) => state.tasks);
+  const addTask = useTask((state) => state.addTask);
+  const toggleCompleted = useTask((state) => state.toggleCompleted);
+  const removeTask = useTask((state) => state.removeTask);
 
   const handleAddTask = () => {
     if (task.length !== 0) {
       addTask(task);
-      setTask('');
+      setTask("");
     }
   };
 
@@ -27,20 +45,20 @@ const Task = () => {
   };
 
   const date = new Date(); // Create a Date object for the current date
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
   const dayNumber = date.getDate();
   const dayName = days[date.getDay()];
@@ -48,7 +66,7 @@ const Task = () => {
   const year = date.getFullYear();
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center h-screen w-screen md:w-full">
       <div className="rounded-xl p-10">
         <div className="flex flex-row items-center justify-between mb-10">
           <section className="flex flex-row items-center space-x-1">
@@ -64,7 +82,7 @@ const Task = () => {
 
         <ul className="mb-10 h-[150px] overflow-auto">
           <AnimatePresence>
-            {tasks.map(task => (
+            {tasks.map((task) => (
               <motion.li
                 key={task.id}
                 initial={{ opacity: 0 }}
@@ -81,15 +99,67 @@ const Task = () => {
                       onChange={() => toggleCompleted(task.id)}
                     />
 
+                    <motion.span className="text-gray-700">
+                      {task.task}
+                      {task.completed && (
+                        <motion.div
+                          className=""
+                          //   style={{
+                          //     position: "absolute",
+                          //     left: 0,
+                          //     top: "50%",
+                          //     width: "100%",
+                          //     height: "1px", // Adjust the line height as needed
+                          //     backgroundColor: "gray", // Adjust the line color as needed
+                          //   }}
+
+                          style={{
+                            position: "relative",
+                            bottom: "11px",
+                            // marginBottom: "5", // Adjust this value as needed
+                            marginTop: "5", // Adjust this value as needed
+                            // width: "100%",
+
+                            height: "1px", // Adjust the line height as needed
+                            backgroundColor: "gray", // Adjust the line color as needed
+                          }}
+                          //   initial={{ width: 0 }}
+                          //   animate={{ width: "100%" }}
+                          //   transition={{ duration: 0.5 }}
+                          initial={{ width: task.completed ? "0%" : "100%" }}
+                          animate={{ width: task.completed ? "100%" : "0%" }}
+                          transition={{ duration: 1 }}
+                        />
+                      )}
+                    </motion.span>
+
+                    {/* <input
+                      type="checkbox"
+                      className="text-indigo-600 h-5 w-5"
+                      checked={task.completed}
+                      onChange={() => toggleCompleted(task.id)}
+                    />
+
                     <span
                       className={
                         task.completed
-                          ? 'line-through text-gray-500'
-                          : 'text-gray-700'
+                          ? "line-through text-gray-500"
+                          : "text-gray-700"
                       }
                     >
                       {task.task}
                     </span>
+
+                    <motion.span
+                      className={
+                        task.completed
+                          ? "line-through text-gray-500"
+                          : "text-gray-700"
+                      }
+                      initial={task.completed ? { width: 0 } : {}}
+                      animate={task.completed ? { width: "100%" } : {}}
+                      transition={{ duration: 0.5 }}
+                    ></motion.span> */}
                   </label>
                   <button onClick={() => handleRemoveTask(task.id)}>
                     <svg
@@ -134,9 +204,9 @@ const Task = () => {
             placeholder="Add a task ..."
             value={task}
             className="outline-none"
-            onChange={e => setTask(e.target.value)}
-            onKeyDown={e => {
-              if (e.key === 'Enter') handleAddTask();
+            onChange={(e) => setTask(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleAddTask();
             }}
           />
         </section>

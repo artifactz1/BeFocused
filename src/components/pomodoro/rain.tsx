@@ -1,4 +1,4 @@
-import '@/styles/rain.css'; // Import the CSS file
+import "@/styles/rain.css"; // Import the CSS file
 
 const droplets = 500;
 
@@ -9,19 +9,19 @@ const Rain = () => {
 
   return (
     // I added a margin top because there was this animation on the top where all the droplets would show
-    <div className="-mt-[30px]">
+    <div className="-mt-[30px] w-screen md:w-full">
       {Array.from({ length: droplets }).map((_, index) => (
         <svg
           key={index}
           className="rain__drop"
           style={
             {
-              '--x': `${generateRandomValue()}`, // Spread on the entire width
-              '--y': `${generateRandomValue() * 100}vh`, // Spread on the entire height
-              '--o': generateRandomFloat(),
-              '--a': generateRandomFloat() + 0.5,
-              '--d': generateRandomSignedFloat(),
-              '--s': generateRandomFloat()
+              "--x": `${generateRandomValue()}`, // Spread on the entire width
+              "--y": `${generateRandomValue() * 100}vh`, // Spread on the entire height
+              "--o": generateRandomFloat(),
+              "--a": generateRandomFloat() + 0.5,
+              "--d": generateRandomSignedFloat(),
+              "--s": generateRandomFloat(),
             } as React.CSSProperties
           }
           preserveAspectRatio="xMinYMin"

@@ -15,40 +15,50 @@ const Task = () => {
   const removeTask = useTask(state => state.removeTask);
 
   const handleAddTask = () => {
-    addTask(task);
+    if (task.length !== 0) {
+      addTask(task);
+      setTask('');
+    }
   };
+
+  const date = new Date(); // Create a Date object for the current date
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+  const dayNumber = date.getDate();
+  const dayName = days[date.getDay()];
+  const monthName = months[date.getMonth()];
+  const year = date.getFullYear();
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <div className="border border-black rounded-xl p-10">
-        <section className="flex flex-row space-x-5">
-          <input
-            type="text"
-            placeholder="Add a task ..."
-            value={task}
-            onChange={e => setTask(e.target.value)}
-            className="border"
-          />
-          <button className="flex flex-row" onClick={handleAddTask}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
-          </button>
-        </section>
+      <div className="rounded-xl p-10">
+        <div className="flex flex-row items-center justify-between mb-10">
+          <section className="flex flex-row items-center space-x-1">
+            <h1 className="text-4xl">{dayNumber}</h1>
+            <div className="flex flex-col text-sm text-gray-600">
+              <span className="font-bold text-black">{monthName}</span>
+              {year}
+            </div>
+          </section>
+
+          <h1 className="font-bold">{dayName}</h1>
+        </div>
 
         {tasks.length > 0 && (
-          <ul className="mt-10">
+          <ul className="mb-10">
             {tasks.map(task => (
               <>
                 <li
@@ -94,6 +104,34 @@ const Task = () => {
             ))}
           </ul>
         )}
+        <section className="border rounded-md p-2 flex flex-row space-x-5">
+          <button className="flex flex-row" onClick={handleAddTask}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+          </button>
+          <input
+            type="text"
+            placeholder="Add a task ..."
+            value={task}
+            className="outline-none"
+            onChange={e => setTask(e.target.value)}
+            onKeyDown={e => {
+              if (e.key === 'Enter') handleAddTask();
+            }}
+          />
+        </section>
       </div>
     </div>
   );

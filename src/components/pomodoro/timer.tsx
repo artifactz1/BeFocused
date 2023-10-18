@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
-import WaveComponent from "./wave";
-import SettingsComponent from "./settings/settings";
+import React, { useState, useEffect } from 'react';
+import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
+import WaveComponent from './wave';
+import SettingsComponent from './settings/settings';
 
 interface Props {
   isPlaying: boolean;
@@ -44,7 +44,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const [toggleBreak, setToggleBreak] = useState(false);
 
   const [overTimeRounds, setOverTimeRounds] = useState(1);
-  const [roundType, setRoundType] = useState("FOCUS");
+  const [roundType, setRoundType] = useState('FOCUS');
 
   const [savedValues, setSavedValues] = useState<any>(null);
   const [counterRounds, setCounterRounds] = useState(0);
@@ -58,7 +58,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
     maxRound: number,
     overTimeRounds: number
   ) => {
-    console.log("round" + currentRound);
+    console.log('round' + currentRound);
 
     if (currentRound % maxRound === 0) {
       if (toggleBreak === false) {
@@ -84,7 +84,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
 
     switch (rType) {
       case 1:
-        setRoundType("FOCUS");
+        setRoundType('FOCUS');
         setInputMinutes(totalFocus.toString());
 
         if (currentRound + 1 > totalRounds) {
@@ -97,12 +97,12 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
         break;
 
       case 2:
-        setRoundType("SHORT BREAK");
+        setRoundType('SHORT BREAK');
         setInputMinutes(totalShortBreak.toString());
         break;
 
       case 3:
-        setRoundType("LONG BREAK");
+        setRoundType('LONG BREAK');
         setInputMinutes(totalLongBreak.toString());
     }
 
@@ -128,7 +128,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
         if (currentTime <= 0) {
-          console.log("Timer has completed!");
+          console.log('Timer has completed!');
           setIsPlaying(false);
           clearInterval(timerInterval);
           nextRound();
@@ -140,11 +140,11 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       setScreenHeight(window.innerHeight);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
       clearInterval(timerInterval);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, [totalDuration, isPlaying]);
 
@@ -154,7 +154,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   // Function to start the timer
   const startTimer = () => {
     if (progress <= 0) {
-      console.log("Timer has completed!");
+      console.log('Timer has completed!');
       resetTimer();
     } else {
       setProgress(progress);
@@ -183,13 +183,13 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   };
 
   const handleSave = (values: any) => {
-    console.log("Received values in parent:", values);
+    console.log('Received values in parent:', values);
 
     setInputMinutes(values.focus); // Use values.focus directly
     setTotalFocus(values.focus);
     setCurrentRound(1);
     resetTimer();
-    setRoundType("FOCUS");
+    setRoundType('FOCUS');
 
     setTotalShortBreak(values.shortBreak);
     setTotalLongBreak(values.longBreak);
@@ -199,40 +199,43 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   };
 
   return (
-    <div className="w-screen h-[calc(100dvh)]  md:h-screen">
-      {/* Timer Visual Component (Server) (Doesn't need React)===================================================================================== */}
-      <div
-        className="bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0 absolute"
-        style={{
-          transform: `scaleY(${1 - progress / 100 - 0.09})`,
-          transformOrigin: "bottom",
-        }}
-      />
-
-      {/* Waves =========================================================================================== */}
-      {screenHeight !== 0 && (
+    <div className="h-[calc(100dvh)] md:h-screen w-full relative">
+      <div>
         <div
-          className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
+          className="absolute bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0"
           style={{
-            transform: `translateY(${wavePosition}px)`,
-            transformOrigin: "bottom",
+            transform: `scaleY(${1 - progress / 100 - 0.09})`,
+            transformOrigin: 'bottom'
           }}
-        >
-          <WaveComponent />
-        </div>
-      )}
+        />
+
+        {screenHeight !== 0 && (
+          <div
+            className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
+            style={{
+              transform: `translateY(${wavePosition}px)`,
+              transformOrigin: 'bottom'
+            }}
+          >
+            <WaveComponent />
+          </div>
+        )}
+      </div>
 
       {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
-      <div className="text-blue-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div
+        className="text-blue-100 min-h-screen flex flex-col justify-center items-center"
+        style={{ zIndex: 9999 }}
+      >
         <div className="text-[120px]">
-          {displayMinutes.toString().padStart(2, "0")}:
-          {displaySeconds.toString().padStart(2, "0")}
+          {displayMinutes.toString().padStart(2, '0')}:
+          {displaySeconds.toString().padStart(2, '0')}
         </div>
         <div className="text-[40px] text-blue-100">{roundType}</div>
         <div className="rounded-2xl">
           {currentRound} / {totalRounds} : ({overTimeRounds})
         </div>
-        <div className="mt-5">
+        {/* <div className="mt-5">
           Progress: {progress} | Current Time: {getCurrentTime} | Remaining
           Time: {remainingTime}| Total Duration: {totalDuration} | Input Minute
           : {inputMinutes} |
@@ -242,7 +245,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           : {totalRounds}| Current Round : {currentRound} | RoundType : | Max
           Round : {totalRounds}
           {roundType} |
-        </div>
+        </div> */}
 
         {/* Play/Pause Button */}
         {/* Play/Pause Button */}
@@ -262,7 +265,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       <div className="absolute bottom-4 left-4">
         <div
           className={`transition-all duration-300 ${
-            isButtonToggled ? "opacity-100" : "opacity-0"
+            isButtonToggled ? 'opacity-100' : 'opacity-0'
           } mt-4 p-4 rounded`}
         >
           <SettingsComponent onSave={handleSave} />

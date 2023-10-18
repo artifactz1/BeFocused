@@ -10,8 +10,8 @@ const Pomodoro = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="flex flex-row h-screen bg-blue-400">
-      <AnimatePresence>
+    <div className="flex flex-row min-h-screen bg-blue-400 w-full">
+      {/* <AnimatePresence>
         {isPlaying && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -22,7 +22,7 @@ const Pomodoro = () => {
             <Rain />
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
       <Timer isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
     </div>
   );

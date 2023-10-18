@@ -141,13 +141,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   };
 
   const handleSave = (values: any) => {
-    // Do something with the saved values, e.g., make an API call, update state, etc.
     console.log("Received values in parent:", values);
-    // setSavedValues(values);
-    // setInputMinutes(savedValues.focus);
-    // setTotalShortBreak(savedValues.shortBreak);
-    // setTotalLongBreak(savedValues.longBreak);
-    // setTotalRounds(savedValues.rounds);
 
     setInputMinutes(values.focus); // Use values.focus directly
     resetTimer();
@@ -160,7 +154,6 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   return (
     <div className="w-screen h-[calc(100dvh)]  md:h-screen">
       {/* Timer Visual Component (Server) (Doesn't need React)===================================================================================== */}
-
       <div
         className="bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0 absolute"
         style={{
@@ -189,9 +182,16 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           {displaySeconds.toString().padStart(2, "0")}
         </div>
         <div className="text-[40px] text-blue-100">FOCUS</div>
-        Progress: {progress} | Current Time: {getCurrentTime} | Remaining Time:{" "}
-        {remainingTime}| Total Duration: {totalDuration} | Input Minute :{" "}
-        {inputMinutes}
+        <div>
+          Progress: {progress} | Current Time: {getCurrentTime} | Remaining
+          Time: {remainingTime}| Total Duration: {totalDuration} | Input Minute
+          : {inputMinutes} |
+        </div>
+        <div>
+          Short Break: {totalShortBreak} | Long Break: {totalLongBreak} | Rounds
+          : {totalRounds}|
+        </div>
+
         {/* Play/Pause Button */}
         {/* Play/Pause Button */}
         {isPlaying ? (

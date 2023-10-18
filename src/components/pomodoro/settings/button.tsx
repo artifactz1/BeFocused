@@ -25,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
       <div style={{ display: "flex", alignItems: "center" }}>
         <input
           type="range"
-          min={0}
+          min={1}
           max={maxRange}
           value={rangeValue}
           onChange={handleRangeValueChange}

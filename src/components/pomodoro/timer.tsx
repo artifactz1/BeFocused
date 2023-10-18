@@ -195,6 +195,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
     setTotalLongBreak(values.longBreak);
     setTotalRounds(values.rounds);
     setSavedValues(values); // Set savedValues after updating individual states
+    setOverTimeRounds(1);
   };
 
   return (

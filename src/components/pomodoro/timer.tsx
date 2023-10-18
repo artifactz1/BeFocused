@@ -25,7 +25,6 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   );
 
   const [progress, setProgress] = useState(100);
-  const [hasPlayed, setHasPlaying] = useState(false);
   const [inputMinutes, setInputMinutes] = useState(initialMinutes.toString());
   const [getCurrentTime, setCurrentTime] = useState(totalDuration);
   const [remainingTime, setRemainingTime] = useState(getCurrentTime);
@@ -36,16 +35,84 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const displaySeconds = remainingTime % 60;
 
   const [isButtonToggled, setIsButtonToggled] = useState(false);
+  const [totalFocus, setTotalFocus] = useState(25);
   const [totalShortBreak, setTotalShortBreak] = useState(5);
   const [totalLongBreak, setTotalLongBreak] = useState(15);
+
+  const [currentRound, setCurrentRound] = useState(1);
   const [totalRounds, setTotalRounds] = useState(4);
+  const [toggleBreak, setToggleBreak] = useState(false);
+
+  const [overTimeRounds, setOverTimeRounds] = useState(1);
+  const [roundType, setRoundType] = useState("FOCUS");
 
   const [savedValues, setSavedValues] = useState<any>(null);
-  const [settingChange, setSettingsChange] = useState(false);
+  const [counterRounds, setCounterRounds] = useState(0);
 
   useEffect(() => {
     resetTimer();
   }, [inputMinutes]);
+
+  const roundTypeCalc = (
+    currentRound: number,
+    maxRound: number,
+    overTimeRounds: number
+  ) => {
+    console.log("round" + currentRound);
+
+    if (currentRound % maxRound === 0) {
+      if (toggleBreak === false) {
+        setToggleBreak(true);
+        return 3;
+      } else {
+        setToggleBreak(false);
+        return 1;
+      }
+    } else {
+      if (toggleBreak === false) {
+        setToggleBreak(true);
+        return 2;
+      } else {
+        setToggleBreak(false);
+        return 1;
+      }
+    }
+  };
+
+  const nextRound = () => {
+    const rType = roundTypeCalc(currentRound, totalRounds, overTimeRounds);
+
+    switch (rType) {
+      case 1:
+        setRoundType("FOCUS");
+        setInputMinutes(totalFocus.toString());
+
+        if (currentRound + 1 > totalRounds) {
+          setCurrentRound(1);
+          setOverTimeRounds(overTimeRounds + 1);
+        } else {
+          setCurrentRound(currentRound + 1);
+        }
+
+        break;
+
+      case 2:
+        setRoundType("SHORT BREAK");
+        setInputMinutes(totalShortBreak.toString());
+        break;
+
+      case 3:
+        setRoundType("LONG BREAK");
+        setInputMinutes(totalLongBreak.toString());
+    }
+
+    resetTimer();
+    // if (currentRound + 1 > totalRounds) {
+    //   setCurrentRound(1);
+    //   setOverTimeRounds(overTimeRounds + 1);
+    //   setToggleBreak(true);
+    // }
+  };
 
   useEffect(() => {
     setScreenHeight(window.innerHeight); // Set initial value after component mount
@@ -64,6 +131,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           console.log("Timer has completed!");
           setIsPlaying(false);
           clearInterval(timerInterval);
+          nextRound();
         }
       }
     }, 1000);
@@ -82,32 +150,6 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
 
   // Calculate the position of the wave component
   const wavePosition = (progress / 100) * screenHeight;
-
-  // Function to handle user input for time
-  const handleTimeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    if (name === "minutes") {
-      console.log("checkMIN", value);
-      if (value == null || value == undefined) {
-        setInputMinutes("0");
-      } else {
-        setInputMinutes(value);
-      }
-    } else if (name === "seconds") {
-      console.log("checkSec", value);
-      if (
-        value === null ||
-        value === undefined ||
-        parseInt(value.toString()) > 59
-      ) {
-        setInputMinutes("0");
-      } else if (value.toString().length > 2) {
-        setInputMinutes(value.toString().substring(0, 2));
-      } else if (value == "0") {
-        setInputMinutes("0");
-      }
-    }
-  };
 
   // Function to start the timer
   const startTimer = () => {
@@ -131,7 +173,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const resetTimer = () => {
     // handleTimeInput;
     const minutes = parseInt(inputMinutes);
-    console.log(minutes);
+    // console.log(minutes);
     const newTotalDuration = calculateTime(minutes, 0);
     setIsPlaying(false);
     setProgress(100);
@@ -144,7 +186,11 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
     console.log("Received values in parent:", values);
 
     setInputMinutes(values.focus); // Use values.focus directly
+    setTotalFocus(values.focus);
+    setCurrentRound(1);
     resetTimer();
+    setRoundType("FOCUS");
+
     setTotalShortBreak(values.shortBreak);
     setTotalLongBreak(values.longBreak);
     setTotalRounds(values.rounds);
@@ -181,15 +227,20 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           {displayMinutes.toString().padStart(2, "0")}:
           {displaySeconds.toString().padStart(2, "0")}
         </div>
-        <div className="text-[40px] text-blue-100">FOCUS</div>
-        <div>
+        <div className="text-[40px] text-blue-100">{roundType}</div>
+        <div className="rounded-2xl">
+          {currentRound} / {totalRounds} : ({overTimeRounds})
+        </div>
+        <div className="mt-5">
           Progress: {progress} | Current Time: {getCurrentTime} | Remaining
           Time: {remainingTime}| Total Duration: {totalDuration} | Input Minute
           : {inputMinutes} |
         </div>
-        <div>
+        <div className="mt-5">
           Short Break: {totalShortBreak} | Long Break: {totalLongBreak} | Rounds
-          : {totalRounds}|
+          : {totalRounds}| Current Round : {currentRound} | RoundType : | Max
+          Round : {totalRounds}
+          {roundType} |
         </div>
 
         {/* Play/Pause Button */}
@@ -221,6 +272,19 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
         >
           Toggle Button
+        </button>
+
+        <button
+          onClick={() => nextRound()}
+          className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
+        >
+          Next
+        </button>
+        <button
+          onClick={() => resetTimer()}
+          className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
+        >
+          Reset
         </button>
       </div>
     </div>

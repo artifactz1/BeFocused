@@ -203,16 +203,15 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   return (
     <>
       {!heightReady ? (
-        <div className='h-screen flex justify-center items-center'>Loading</div>
+        <div className="h-screen flex justify-center items-center">Loading</div>
       ) : (
         <div className="h-screen w-full relative overflow-hidden">
-          <div>
+          <div className="-z-10">
             <div
               className="absolute bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0"
               style={{
                 transform: `scaleY(${1 - progress / 100 - 0.09})`,
-                transformOrigin: 'bottom',
-                zIndex: 1 // Set a lower z-index
+                transformOrigin: 'bottom'
               }}
             />
 
@@ -221,8 +220,7 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
                 className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
                 style={{
                   transform: `translateY(${wavePosition}px)`,
-                  transformOrigin: 'bottom',
-                  zIndex: 1 // Set a lower z-index
+                  transformOrigin: 'bottom'
                 }}
               >
                 <WaveComponent />
@@ -231,12 +229,14 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           </div>
 
           {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
-          <div className="text-blue-100 flex flex-col justify-center items-center h-[80vh] z-10">
+          {/* <div className="aboslute text-blue-500 left-4 bottom-0 z-20"> */}
+
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-100 z-20">
             <div className="text-[120px]">
               {displayMinutes.toString().padStart(2, '0')}:
               {displaySeconds.toString().padStart(2, '0')}
             </div>
-            <div className="text-[40px] text-blue-500">{roundType}</div>
+            <div className="text-[40px] text-blue-100">{roundType}</div>
             <div className="rounded-2xl">
               {currentRound} / {totalRounds} : ({overTimeRounds})
             </div>

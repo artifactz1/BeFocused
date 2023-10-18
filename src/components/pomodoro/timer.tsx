@@ -8,9 +8,18 @@ import SettingsComponent from './settings/settings';
 interface Props {
   isPlaying: boolean;
   setIsPlaying: (isPLaying: boolean) => void;
+  className?: string;
+  children?: React.ReactNode;
 }
 
-const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
+const Timer: React.FC<Props> = ({
+  isPlaying,
+  setIsPlaying,
+  children,
+  className
+}) => {
+  const combinedClassName = `default-classes ${className || ''}`;
+
   const calculateTime = (minutes: number, seconds: number) => {
     const totalDuration = minutes * 60 + seconds;
     return totalDuration;
@@ -200,42 +209,44 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
 
   return (
     <>
-      <div className="h-screen w-full relative overflow-hidden">
-        <div className="-z-10">
-          <div
-            className="absolute bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0"
-            style={{
-              transform: `scaleY(${1 - progress / 100 - 0.09})`,
-              transformOrigin: 'bottom'
-            }}
-          />
-
-          {screenHeight !== 0 && (
+      <div className={combinedClassName}>
+        <div className="h-screen w-full relative overflow-hidden">
+          {children}
+          <div className="-z-10">
             <div
-              className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
+              className="absolute bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0"
               style={{
-                transform: `translateY(${wavePosition}px)`,
+                transform: `scaleY(${1 - progress / 100 - 0.09})`,
                 transformOrigin: 'bottom'
               }}
-            >
-              <WaveComponent />
+            />
+
+            {screenHeight !== 0 && (
+              <div
+                className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom"
+                style={{
+                  transform: `translateY(${wavePosition}px)`,
+                  transformOrigin: 'bottom'
+                }}
+              >
+                <WaveComponent />
+              </div>
+            )}
+          </div>
+
+          {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
+          {/* <div className="aboslute text-blue-500 left-4 bottom-0 z-20"> */}
+
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-100 z-20">
+            <div className="text-[120px]">
+              {displayMinutes.toString().padStart(2, '0')}:
+              {displaySeconds.toString().padStart(2, '0')}
             </div>
-          )}
-        </div>
-
-        {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
-        {/* <div className="aboslute text-blue-500 left-4 bottom-0 z-20"> */}
-
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-100 z-20">
-          <div className="text-[120px]">
-            {displayMinutes.toString().padStart(2, '0')}:
-            {displaySeconds.toString().padStart(2, '0')}
-          </div>
-          <div className="text-[40px] text-blue-100">{roundType}</div>
-          <div className="rounded-2xl">
-            {currentRound} / {totalRounds} : ({overTimeRounds})
-          </div>
-          {/* <div className="mt-5">
+            <div className="text-[40px] text-blue-100">{roundType}</div>
+            <div className="rounded-2xl">
+              {currentRound} / {totalRounds} : ({overTimeRounds})
+            </div>
+            {/* <div className="mt-5">
           Progress: {progress} | Current Time: {getCurrentTime} | Remaining
           Time: {remainingTime}| Total Duration: {totalDuration} | Input Minute
           : {inputMinutes} |
@@ -247,49 +258,50 @@ const Timer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
           {roundType} |
         </div> */}
 
-          {/* Play/Pause Button */}
-          {/* Play/Pause Button */}
-          {isPlaying ? (
-            <AiFillPauseCircle
-              onClick={pauseTimer}
-              className="text-5xl  cursor-pointer px-2 py-1"
-            />
-          ) : (
-            <AiFillPlayCircle
-              onClick={startTimer}
-              className="text-5xl cursor-pointer px-2 py- 2"
-            />
-          )}
-        </div>
-
-        <div className="absolute bottom-4 left-4 z-10">
-          <div
-            className={`transition-all duration-300 ${
-              isButtonToggled ? 'opacity-100' : 'opacity-0'
-            } mt-4 p-4 rounded`}
-          >
-            <SettingsComponent onSave={handleSave} />
+            {/* Play/Pause Button */}
+            {/* Play/Pause Button */}
+            {isPlaying ? (
+              <AiFillPauseCircle
+                onClick={pauseTimer}
+                className="text-5xl  cursor-pointer px-2 py-1"
+              />
+            ) : (
+              <AiFillPlayCircle
+                onClick={startTimer}
+                className="text-5xl cursor-pointer px-2 py- 2"
+              />
+            )}
           </div>
 
-          <button
-            onClick={() => setIsButtonToggled(!isButtonToggled)}
-            className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
-          >
-            Toggle Button
-          </button>
+          <div className="absolute bottom-4 left-4 z-10">
+            <div
+              className={`transition-all duration-300 ${
+                isButtonToggled ? 'opacity-100' : 'opacity-0'
+              } mt-4 p-4 rounded`}
+            >
+              <SettingsComponent onSave={handleSave} />
+            </div>
 
-          <button
-            onClick={() => nextRound()}
-            className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
-          >
-            Next
-          </button>
-          <button
-            onClick={() => resetTimer()}
-            className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
-          >
-            Reset
-          </button>
+            <button
+              onClick={() => setIsButtonToggled(!isButtonToggled)}
+              className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
+            >
+              Toggle Button
+            </button>
+
+            <button
+              onClick={() => nextRound()}
+              className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
+            >
+              Next
+            </button>
+            <button
+              onClick={() => resetTimer()}
+              className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
+            >
+              Reset
+            </button>
+          </div>
         </div>
       </div>
     </>

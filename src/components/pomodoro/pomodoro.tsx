@@ -17,8 +17,8 @@ const Pomodoro = () => {
         setIsPlaying={setIsPlaying}
         className="w-screen md:w-full"
       >
-        {isPlaying && (
-          <AnimatePresence>
+        <AnimatePresence>
+          {isPlaying && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: isPlaying ? 1 : 0 }}
@@ -27,8 +27,8 @@ const Pomodoro = () => {
             >
               <Rain />
             </motion.div>
-          </AnimatePresence>
-        )}
+          )}
+        </AnimatePresence>
       </Timer>
       <ModeToggle />
     </div>

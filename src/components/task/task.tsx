@@ -68,7 +68,7 @@ const Task = () => {
   const year = date.getFullYear();
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-screen md:w-full">
+    <div className="flex flex-col justify-center items-center h-screen w-screen md:w-full dark:bg-background">
       <ModeToggle />
       <Card>
         <CardHeader>

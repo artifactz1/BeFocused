@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import useTask from "@/store/useTask";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useState } from 'react';
+import useTask from '@/store/useTask';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ModeToggle } from '../mode-toggle';
 
 // .line-through-animation {
 //     position: absolute;
@@ -14,12 +15,12 @@ import { AnimatePresence, motion } from "framer-motion";
 //   }
 
 const lineThroughAnimationStyle = {
-  position: "absolute",
+  position: 'absolute',
   left: 0,
-  top: "50%",
-  width: "100%",
-  height: "1px", // Adjust the line height as needed
-  backgroundColor: "gray", // Adjust the line color as needed
+  top: '50%',
+  width: '100%',
+  height: '1px', // Adjust the line height as needed
+  backgroundColor: 'gray' // Adjust the line color as needed
 };
 
 const Task = () => {
@@ -27,16 +28,16 @@ const Task = () => {
     useTask.persist.rehydrate();
   }, []);
 
-  const [task, setTask] = useState<string>("");
-  const tasks = useTask((state) => state.tasks);
-  const addTask = useTask((state) => state.addTask);
-  const toggleCompleted = useTask((state) => state.toggleCompleted);
-  const removeTask = useTask((state) => state.removeTask);
+  const [task, setTask] = useState<string>('');
+  const tasks = useTask(state => state.tasks);
+  const addTask = useTask(state => state.addTask);
+  const toggleCompleted = useTask(state => state.toggleCompleted);
+  const removeTask = useTask(state => state.removeTask);
 
   const handleAddTask = () => {
     if (task.length !== 0) {
       addTask(task);
-      setTask("");
+      setTask('');
     }
   };
 
@@ -45,20 +46,20 @@ const Task = () => {
   };
 
   const date = new Date(); // Create a Date object for the current date
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
   ];
   const dayNumber = date.getDate();
   const dayName = days[date.getDay()];
@@ -67,7 +68,8 @@ const Task = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen md:w-full">
-      <div className="rounded-xl p-10">
+      <ModeToggle />
+      <div className="p-10">
         <div className="flex flex-row items-center justify-between mb-10">
           <section className="flex flex-row items-center space-x-1">
             <h1 className="text-4xl">{dayNumber}</h1>
@@ -82,7 +84,7 @@ const Task = () => {
 
         <ul className="mb-10 h-[150px] overflow-auto">
           <AnimatePresence>
-            {tasks.map((task) => (
+            {tasks.map(task => (
               <motion.li
                 key={task.id}
                 initial={{ opacity: 0 }}
@@ -114,20 +116,20 @@ const Task = () => {
                           //   }}
 
                           style={{
-                            position: "relative",
-                            bottom: "11px",
+                            position: 'relative',
+                            bottom: '11px',
                             // marginBottom: "5", // Adjust this value as needed
-                            marginTop: "5", // Adjust this value as needed
+                            marginTop: '5', // Adjust this value as needed
                             // width: "100%",
 
-                            height: "1px", // Adjust the line height as needed
-                            backgroundColor: "gray", // Adjust the line color as needed
+                            height: '1px', // Adjust the line height as needed
+                            backgroundColor: 'gray' // Adjust the line color as needed
                           }}
                           //   initial={{ width: 0 }}
                           //   animate={{ width: "100%" }}
                           //   transition={{ duration: 0.5 }}
-                          initial={{ width: task.completed ? "0%" : "100%" }}
-                          animate={{ width: task.completed ? "100%" : "0%" }}
+                          initial={{ width: task.completed ? '0%' : '100%' }}
+                          animate={{ width: task.completed ? '100%' : '0%' }}
                           transition={{ duration: 1 }}
                         />
                       )}
@@ -204,9 +206,9 @@ const Task = () => {
             placeholder="Add a task ..."
             value={task}
             className="outline-none"
-            onChange={(e) => setTask(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleAddTask();
+            onChange={e => setTask(e.target.value)}
+            onKeyDown={e => {
+              if (e.key === 'Enter') handleAddTask();
             }}
           />
         </section>

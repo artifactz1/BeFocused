@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main style={lato.style}>
       <div className="flex flex-col md:flex-row w-screen">
-        <Pomodoro />
+        {/* <Pomodoro /> */}
         <Task />
       </div>
     </main>

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Rain from "./rain";
-import Timer from "./timer";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from 'react';
+import Rain from './rain';
+import Timer from './timer';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Pomodoro = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -16,8 +16,8 @@ const Pomodoro = () => {
         setIsPlaying={setIsPlaying}
         className="w-screen md:w-full"
       >
-        {isPlaying && (
-          <AnimatePresence>
+        <AnimatePresence>
+          {isPlaying && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: isPlaying ? 1 : 0 }}
@@ -26,8 +26,8 @@ const Pomodoro = () => {
             >
               <Rain />
             </motion.div>
-          </AnimatePresence>
-        )}
+          )}
+        </AnimatePresence>
       </Timer>
     </div>
   );

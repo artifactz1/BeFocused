@@ -221,7 +221,7 @@ const Timer: React.FC<Props> = ({
           />
 
           {/* Wave Component */}
-          {screenHeight !== 0 && (
+          {screenHeight !== 0 && progress > 0 && (
             <div
               className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom "
               style={{

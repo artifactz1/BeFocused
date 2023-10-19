@@ -30,7 +30,6 @@ const Pomodoro = () => {
           )}
         </AnimatePresence>
       </Timer>
-      <ModeToggle />
     </div>
   );
 };

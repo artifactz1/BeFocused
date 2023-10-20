@@ -48,52 +48,69 @@ const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
       <DropdownMenuContent className="w-[400px]">
         <DropdownMenuLabel>Settings</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Card className="w-full">
-            <CardHeader>Focus</CardHeader>
-            <CardContent>
-              <Slider
-                defaultValue={[values.focus]}
-                max={maxRangeMinutes}
-                onChange={e => handleRangeValueChange(e.target.value, 'focus')}
-                step={1}
-              />
-            </CardContent>
-          </Card>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Card className="w-full">
-            <CardHeader>Short Break</CardHeader>
-            <CardContent>
-              <Slider
-                defaultValue={[values.shortBreak]}
-                max={maxRangeMinutes}
-                onChange={e => handleRangeValueChange(e, 'focus')}
-                step={1}
-              />
-            </CardContent>
-          </Card>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Card className="w-full">
-            <CardHeader>Long Break</CardHeader>
-            <CardContent>
-              <Slider
-                defaultValue={[values.longBreak]}
-                max={maxRangeMinutes}
-                step={1}
-              />
-            </CardContent>
-          </Card>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Card className="w-full">
-            <CardHeader>Rounds</CardHeader>
-            <CardContent>
-              <Slider defaultValue={[values.rounds]} max={maxRounds} step={1} />
-            </CardContent>
-          </Card>
-        </DropdownMenuItem>
+        <Card className="w-full">
+          <CardHeader>Focus: {values.focus}</CardHeader>
+          <CardContent>
+            <Slider
+              defaultValue={[values.focus]}
+              min={1}
+              max={maxRangeMinutes}
+              onValueChange={value => {
+                handleRangeValueChange(value[0], 'focus');
+              }}
+              step={1}
+            />
+          </CardContent>
+        </Card>
+        <Card className="w-full">
+          <CardHeader>Short Break: {values.shortBreak}</CardHeader>
+          <CardContent>
+            <Slider
+              defaultValue={[values.shortBreak]}
+              min={1}
+              max={maxRangeMinutes}
+              onValueChange={value => {
+                handleRangeValueChange(value[0], 'shortBreak');
+              }}
+              step={1}
+            />
+          </CardContent>
+        </Card>
+        <Card className="w-full">
+          <CardHeader>Long Break: {values.longBreak}</CardHeader>
+          <CardContent>
+            <Slider
+              defaultValue={[values.longBreak]}
+              min={1}
+              max={maxRangeMinutes}
+              onValueChange={value => {
+                handleRangeValueChange(value[0], 'longBreak');
+              }}
+              step={1}
+            />
+          </CardContent>
+        </Card>
+        <Card className="w-full">
+          <CardHeader>Rounds: {values.rounds}</CardHeader>
+          <CardContent>
+            <Slider
+              defaultValue={[values.rounds]}
+              min={1}
+              max={maxRounds}
+              step={1}
+              onValueChange={value => {
+                handleRangeValueChange(value[0], 'rounds');
+              }}
+            />
+          </CardContent>
+        </Card>
+
+        <Button
+          onClick={handleSave}
+          className="flex flex-row-reverse border border-1 rounded-md w-fit p-2 cursor-pointer"
+        >
+          Save
+        </Button>
       </DropdownMenuContent>
     </DropdownMenu>
 

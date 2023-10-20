@@ -317,12 +317,12 @@ const Timer: React.FC<Props> = ({
             >
               <SettingsComponent onSave={handleSave} />
             </div>
-            <button
+            {/* <button
               onClick={() => setIsButtonToggled(!isButtonToggled)}
               className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
             >
               Toggle Button
-            </button>
+            </button> */}
             <button
               onClick={() => nextRound()}
               className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"

@@ -20,7 +20,7 @@ interface SettingsProps {
 
 const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
   const maxRangeMinutes = 90;
-  const maxRounds = 12;
+  const maxRounds = 12
 
   const [values, setValues] = useState({
     focus: 25,

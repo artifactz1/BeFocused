@@ -21,42 +21,42 @@ const Wave = () => {
             xlinkHref="#gentle-wave"
             x="48"
             y="0"
-            stroke="rgba(255,255,255,0.7)"
+            stroke="rgba(113, 113, 122,0.7)"
             fill="transparent"
-            strokeWidth="1"
+            strokeWidth="0.5"
           />
           <use
             xlinkHref="#gentle-wave"
             x="48"
             y="3"
-            stroke="rgba(255,255,255,0.5)"
+            stroke="rgba(113, 113, 122,0.5)"
             fill="transparent"
-            strokeWidth="1"
+            strokeWidth="0.5"
           />
           <use
             xlinkHref="#gentle-wave"
             x="48"
             y="5"
-            stroke="rgba(255,255,255,0.3)"
+            stroke="rgba(113, 113, 122,0.3)"
             fill="transparent"
-            strokeWidth="1"
+            strokeWidth="0.5"
           />
-          {/* <use
+          <use
             xlinkHref="#gentle-wave"
             x="48"
             y="7"
-            stroke="rgba(255,255,255,0.5)"
+            stroke="rgba(113, 113, 122,0.5)"
             fill="transparent"
-            strokeWidth="1"
-          /> */}
-          {/* <use
+            strokeWidth="0.5"
+          />
+          <use
             xlinkHref="#gentle-wave"
             x="48"
             y="9"
             stroke="#808080"
             fill="transparent"
-            strokeWidth="1"
-          /> */}
+            strokeWidth="0.5"
+          />
         </g>
       </svg>
     </div>
@@ -87,25 +87,25 @@ export default Wave;
 //             xlinkHref="#gentle-wave"
 //             x="48"
 //             y="0"
-//             fill="rgba(255,255,255,0.7)"
+//             fill="rgba(113, 113, 122,0.7)"
 //           />
 //           <use
 //             xlinkHref="#gentle-wave"
 //             x="48"
 //             y="3"
-//             fill="rgba(255,255,255,0.5)"
+//             fill="rgba(113, 113, 122,0.5)"
 //           />
 //           <use
 //             xlinkHref="#gentle-wave"
 //             x="48"
 //             y="5"
-//             fill="rgba(255,255,255,0.3)"
+//             fill="rgba(113, 113, 122,0.3)"
 //           />
 //           <use
 //             xlinkHref="#gentle-wave"
 //             x="48"
 //             y="7"
-//             fill="rgba(255,255,255,0.5)"
+//             fill="rgba(113, 113, 122,0.5)"
 //           />
 //           <use xlinkHref="#gentle-wave" x="48" y="9" fill="#808080" />
 //         </g>

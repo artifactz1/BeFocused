@@ -41,22 +41,22 @@ const Wave = () => {
             fill="transparent"
             strokeWidth="1"
           />
-          <use
+          {/* <use
             xlinkHref="#gentle-wave"
             x="48"
             y="7"
             stroke="rgba(255,255,255,0.5)"
             fill="transparent"
             strokeWidth="1"
-          />
-          <use
+          /> */}
+          {/* <use
             xlinkHref="#gentle-wave"
             x="48"
             y="9"
             stroke="#808080"
             fill="transparent"
             strokeWidth="1"
-          />
+          /> */}
         </g>
       </svg>
     </div>

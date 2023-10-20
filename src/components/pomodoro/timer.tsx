@@ -225,7 +225,7 @@ const Timer: React.FC<Props> = ({
           <div
             className="absolute bg-background dark:bg-background h-full w-full transition-transform duration-1000 origin-top bottom-0 "
             style={{
-              transform: `scaleY(${1 - progress / 100 - 0.09})`,
+              transform: `scaleY(${1 - progress / 100 - 0.07})`,
               transformOrigin: 'bottom'
             }}
           />

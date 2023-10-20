@@ -44,7 +44,9 @@ const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
+        <Button>Open</Button>
+      </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[400px]">
         <DropdownMenuLabel>Settings</DropdownMenuLabel>
         <DropdownMenuSeparator />

@@ -249,12 +249,12 @@ const Timer: React.FC<Props> = ({
           {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
           {/* <div className="aboslute text-blue-500 left-4 bottom-0 z-20"> */}
 
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-100 z-30">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-muted-foreground">
             <div className="text-[120px]">
               {displayMinutes.toString().padStart(2, '0')}:
               {displaySeconds.toString().padStart(2, '0')}
             </div>
-            <div className="text-[40px] text-blue-100">{roundType}</div>
+            <div className="text-[40px] text-muted-foreground">{roundType}</div>
             <div className="rounded-2xl">
               {currentRound} / {totalRounds} : ({overTimeRounds})
             </div>
@@ -310,31 +310,15 @@ const Timer: React.FC<Props> = ({
           </div>
 
           <div className="absolute bottom-4 left-4 z-10">
-            <div
-              className={`transition-all duration-300 ${
-                isButtonToggled ? 'opacity-100' : 'opacity-0'
-              } mt-4 p-4 rounded`}
-            >
               <SettingsComponent onSave={handleSave} />
-            </div>
             {/* <button
               onClick={() => setIsButtonToggled(!isButtonToggled)}
               className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
             >
               Toggle Button
             </button> */}
-            <button
-              onClick={() => nextRound()}
-              className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
-            >
-              Next
-            </button>
-            <button
-              onClick={() => resetTimer()}
-              className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
-            >
-              Reset
-            </button>
+            <Button onClick={() => nextRound()}>Next</Button>
+            <Button onClick={() => resetTimer()}>Reset</Button>
           </div>
         </div>
       </div>

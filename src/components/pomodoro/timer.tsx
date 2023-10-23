@@ -14,6 +14,7 @@ import {
 } from '../ui/dropdown-menu';
 import { Slider } from '../ui/slider';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { ModeToggle } from '../mode-toggle';
 
 interface Props {
   isPlaying: boolean;
@@ -319,6 +320,7 @@ const Timer: React.FC<Props> = ({
             </button> */}
             <Button onClick={() => nextRound()}>Next</Button>
             <Button onClick={() => resetTimer()}>Reset</Button>
+            <ModeToggle />
           </div>
         </div>
       </div>

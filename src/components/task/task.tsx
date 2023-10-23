@@ -69,7 +69,6 @@ const Task = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen w-screen md:w-full dark:bg-background">
-      <ModeToggle />
       <Card>
         <CardHeader>
           <div className="flex flex-row items-center justify-between">

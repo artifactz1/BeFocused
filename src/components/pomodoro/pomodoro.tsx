@@ -5,11 +5,14 @@ import Rain from './rain';
 import Timer from './timer';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { ModeToggle } from '../mode-toggle';
+
+
 const Pomodoro = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen bg-blue-400 w-screen md:w-full relative">
+    <div className="flex flex-col h-screen dark:bg-background w-screen md:w-full relative">
       {/* Create a container for Timer and Rain */}
       <Timer
         isPlaying={isPlaying}

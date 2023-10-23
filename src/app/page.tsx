@@ -8,12 +8,11 @@ const lato = Lato({
 
 import Pomodoro from '@/components/pomodoro/pomodoro';
 import Task from '@/components/task/task';
-import { Suspense } from 'react';
 
 export default function Home() {
   return (
     <main style={lato.style}>
-      <div className="flex flex-col md:flex-row w-screen">
+      <div className="flex flex-col md:flex-row w-screen ">
         <Pomodoro />
         <Task />
       </div>

@@ -3,6 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import WaveComponent from './wave';
 import SettingsComponent from './settings/settings';
+import { Button } from '../ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '../ui/dropdown-menu';
+import { Slider } from '../ui/slider';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { ModeToggle } from '../mode-toggle';
 
 interface Props {
   isPlaying: boolean;
@@ -212,17 +224,17 @@ const Timer: React.FC<Props> = ({
         <div className="h-screen w-full relative overflow-hidden z-0">
           {/* Filler Component */}
           <div
-            className="absolute bg-white h-full w-full transition-transform duration-1000 origin-top bottom-0 "
+            className="absolute bg-background dark:bg-background h-full w-full transition-transform duration-1000 origin-top bottom-0 "
             style={{
-              transform: `scaleY(${1 - progress / 100 - 0.09})`,
+              transform: `scaleY(${1 - progress / 100 - 0.07})`,
               transformOrigin: 'bottom'
             }}
           />
 
           {/* Wave Component */}
-          {screenHeight !== 0 && (
+          {screenHeight !== 0 && progress > 0 && (
             <div
-              className="waves absolute w-full h-[10vh] transition-transform duration-1000 origin-bottom "
+              className="waves absolute w-full transition-transform duration-1000 origin-bottom "
               style={{
                 transform: `translateY(${wavePosition}px)`,
                 transformOrigin: 'bottom'
@@ -238,12 +250,12 @@ const Timer: React.FC<Props> = ({
           {/* Display Timer - Component (Server) (Doesn't need Reacet) ==================================================== */}
           {/* <div className="aboslute text-blue-500 left-4 bottom-0 z-20"> */}
 
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-100 z-30">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-muted-foreground">
             <div className="text-[120px]">
               {displayMinutes.toString().padStart(2, '0')}:
               {displaySeconds.toString().padStart(2, '0')}
             </div>
-            <div className="text-[40px] text-blue-100">{roundType}</div>
+            <div className="text-[40px] text-muted-foreground">{roundType}</div>
             <div className="rounded-2xl">
               {currentRound} / {totalRounds} : ({overTimeRounds})
             </div>
@@ -262,7 +274,7 @@ const Timer: React.FC<Props> = ({
             {/* Play/Pause Button */}
             {/* Play/Pause Button */}
             {isPlaying ? (
-              <button onClick={pauseTimer}>
+              <Button onClick={pauseTimer}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -277,9 +289,9 @@ const Timer: React.FC<Props> = ({
                     d="M15.75 5.25v13.5m-7.5-13.5v13.5"
                   />
                 </svg>
-              </button>
+              </Button>
             ) : (
-              <button onClick={startTimer}>
+              <Button onClick={startTimer}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -294,38 +306,21 @@ const Timer: React.FC<Props> = ({
                     d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
                   />
                 </svg>
-              </button>
+              </Button>
             )}
           </div>
 
           <div className="absolute bottom-4 left-4 z-10">
-            <div
-              className={`transition-all duration-300 ${
-                isButtonToggled ? 'opacity-100' : 'opacity-0'
-              } mt-4 p-4 rounded`}
-            >
-              <SettingsComponent onSave={handleSave} />
-            </div>
-
-            <button
+            <SettingsComponent onSave={handleSave} />
+            {/* <button
               onClick={() => setIsButtonToggled(!isButtonToggled)}
               className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
             >
               Toggle Button
-            </button>
-
-            <button
-              onClick={() => nextRound()}
-              className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
-            >
-              Next
-            </button>
-            <button
-              onClick={() => resetTimer()}
-              className="transition-all duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-fit rounded"
-            >
-              Reset
-            </button>
+            </button> */}
+            <Button onClick={() => nextRound()}>Next</Button>
+            <Button onClick={() => resetTimer()}>Reset</Button>
+            <ModeToggle />
           </div>
         </div>
       </div>

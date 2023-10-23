@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 import Rain from './rain';
 import Timer from './timer';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import { ModeToggle } from '../mode-toggle';
+
 
 const Pomodoro = () => {
   const [isPlaying, setIsPlaying] = useState(false);

@@ -1,20 +1,21 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import WaveComponent from './wave';
-import SettingsComponent from './settings/settings';
-import { Button } from '../ui/button';
+import React, { useState, useEffect } from "react";
+import WaveComponent from "./wave";
+import SettingsComponent from "./settings/settings";
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '../ui/dropdown-menu';
-import { Slider } from '../ui/slider';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { ModeToggle } from '../mode-toggle';
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Slider } from "../ui/slider";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { ModeToggle } from "../mode-toggle";
+import AudioPlayer from "./settings/rainsound";
 
 interface Props {
   isPlaying: boolean;
@@ -27,9 +28,9 @@ const Timer: React.FC<Props> = ({
   isPlaying,
   setIsPlaying,
   children,
-  className
+  className,
 }) => {
-  const combinedClassName = `default-classes ${className || ''}`;
+  const combinedClassName = `default-classes ${className || ""}`;
 
   const calculateTime = (minutes: number, seconds: number) => {
     const totalDuration = minutes * 60 + seconds;
@@ -64,7 +65,7 @@ const Timer: React.FC<Props> = ({
   const [toggleBreak, setToggleBreak] = useState(false);
 
   const [overTimeRounds, setOverTimeRounds] = useState(1);
-  const [roundType, setRoundType] = useState('FOCUS');
+  const [roundType, setRoundType] = useState("FOCUS");
 
   const [savedValues, setSavedValues] = useState<any>(null);
   const [counterRounds, setCounterRounds] = useState(0);
@@ -78,7 +79,7 @@ const Timer: React.FC<Props> = ({
     maxRound: number,
     overTimeRounds: number
   ) => {
-    console.log('round' + currentRound);
+    console.log("round" + currentRound);
 
     if (currentRound % maxRound === 0) {
       if (toggleBreak === false) {
@@ -104,7 +105,7 @@ const Timer: React.FC<Props> = ({
 
     switch (rType) {
       case 1:
-        setRoundType('FOCUS');
+        setRoundType("FOCUS");
         setInputMinutes(totalFocus.toString());
 
         if (currentRound + 1 > totalRounds) {
@@ -117,12 +118,12 @@ const Timer: React.FC<Props> = ({
         break;
 
       case 2:
-        setRoundType('SHORT BREAK');
+        setRoundType("SHORT BREAK");
         setInputMinutes(totalShortBreak.toString());
         break;
 
       case 3:
-        setRoundType('LONG BREAK');
+        setRoundType("LONG BREAK");
         setInputMinutes(totalLongBreak.toString());
     }
 
@@ -148,7 +149,7 @@ const Timer: React.FC<Props> = ({
         setRemainingTime(currentTime);
         setCurrentTime(currentTime);
         if (currentTime <= 0) {
-          console.log('Timer has completed!');
+          console.log("Timer has completed!");
           setIsPlaying(false);
           clearInterval(timerInterval);
           nextRound();
@@ -160,11 +161,11 @@ const Timer: React.FC<Props> = ({
       setScreenHeight(window.innerHeight);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       clearInterval(timerInterval);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [totalDuration, isPlaying]);
 
@@ -174,7 +175,7 @@ const Timer: React.FC<Props> = ({
   // Function to start the timer
   const startTimer = () => {
     if (progress <= 0) {
-      console.log('Timer has completed!');
+      console.log("Timer has completed!");
       resetTimer();
     } else {
       setProgress(progress);
@@ -203,13 +204,13 @@ const Timer: React.FC<Props> = ({
   };
 
   const handleSave = (values: any) => {
-    console.log('Received values in parent:', values);
+    console.log("Received values in parent:", values);
 
     setInputMinutes(values.focus); // Use values.focus directly
     setTotalFocus(values.focus);
     setCurrentRound(1);
     resetTimer();
-    setRoundType('FOCUS');
+    setRoundType("FOCUS");
 
     setTotalShortBreak(values.shortBreak);
     setTotalLongBreak(values.longBreak);
@@ -227,7 +228,7 @@ const Timer: React.FC<Props> = ({
             className="absolute bg-background dark:bg-background h-full w-full transition-transform duration-1000 origin-top bottom-0 "
             style={{
               transform: `scaleY(${1 - progress / 100 - 0.07})`,
-              transformOrigin: 'bottom'
+              transformOrigin: "bottom",
             }}
           />
 
@@ -237,7 +238,7 @@ const Timer: React.FC<Props> = ({
               className="waves absolute w-full transition-transform duration-1000 origin-bottom "
               style={{
                 transform: `translateY(${wavePosition}px)`,
-                transformOrigin: 'bottom'
+                transformOrigin: "bottom",
               }}
             >
               <WaveComponent />
@@ -252,8 +253,8 @@ const Timer: React.FC<Props> = ({
 
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-muted-foreground">
             <div className="text-[120px]">
-              {displayMinutes.toString().padStart(2, '0')}:
-              {displaySeconds.toString().padStart(2, '0')}
+              {displayMinutes.toString().padStart(2, "0")}:
+              {displaySeconds.toString().padStart(2, "0")}
             </div>
             <div className="text-[40px] text-muted-foreground">{roundType}</div>
             <div className="rounded-2xl">
@@ -321,6 +322,7 @@ const Timer: React.FC<Props> = ({
             <Button onClick={() => nextRound()}>Next</Button>
             <Button onClick={() => resetTimer()}>Reset</Button>
             <ModeToggle />
+            <AudioPlayer />
           </div>
         </div>
       </div>

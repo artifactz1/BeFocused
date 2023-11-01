@@ -4,7 +4,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-interface Task {
+export interface Task {
   id: number;
   completed: boolean;
   task: string;

@@ -17,34 +17,28 @@ function AudioPlayer() {
       const totalTime = audioRef1.current.duration;
 
       if (isAudio1 === true) {
+        console.log("CURRENTLY AUDIO 1")
         setCurrentAudio(audioRef1.current);
         audioRef1.current.addEventListener("timeupdate", () => {
           setCurrentTime(audioRef1.current?.currentTime ?? 0);
-          audioRef2.current?.pause;
+          // audioRef2.current?.pause;
         });
-      } else {
+      } 
+      else {
+
+        console.log("CURRENTLY AUDIO 2")
         setCurrentAudio(audioRef2.current);
         audioRef2.current.addEventListener("timeupdate", () => {
           setCurrentTime(audioRef2.current?.currentTime ?? 0);
-          audioRef1.current?.pause;
+          // audioRef1.current?.pause;
         });
       }
 
       audioRef1.current.addEventListener("timeupdate", () => {
-        if (audioRef1.current?.currentTime === totalTime) {
-          audioRef1.current.pause();
-          audioRef1.current.volume = 0;
-        }
-
         setCurrentTimeA1(audioRef1.current?.currentTime ?? 0);
       });
 
       audioRef2.current.addEventListener("timeupdate", () => {
-        if (audioRef2.current?.currentTime === totalTime) {
-          audioRef2.current.pause();
-          audioRef2.current.volume = 0;
-        }
-
         setCurrentTimeA2(audioRef2.current?.currentTime ?? 0);
       });
 
@@ -88,18 +82,24 @@ function AudioPlayer() {
         ? audioRef2.current!
         : audioRef1.current!;
 
-    if (fromAudio.currentTime === fromAudio.duration) {
-      fromAudio.currentTime = 0;
-      fromAudio.volume = 0;
-      fromAudio.pause();
-    }
+
+
     // toAudio.currentTime = 0; // Ensure that the "to" audio starts from the beginning
     setCurrentTime(toAudio.currentTime);
     toAudio.volume = 1; // Play only the "to" audio
     toAudio.play(); // Play only the "to" audio
     setCurrentAudio(toAudio);
 
+
+console.log("BEFORE IF STATEMENT PAUSE ===============")
+    if (fromAudio.currentTime === fromAudio.duration) {
     checkAudio1(isAudio1 === true ? false : true);
+      fromAudio.currentTime = 0;
+      fromAudio.volume = 0;
+      fromAudio.pause();
+      console.log("PAUSE FROM AUDIO ============")
+    }
+
   };
 
   const toggleAudio = () => {

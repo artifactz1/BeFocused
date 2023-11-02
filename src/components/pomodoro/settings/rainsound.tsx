@@ -6,9 +6,8 @@ function AudioPlayer() {
   const [currentTime, setCurrentTime] = useState(0);
   const [currentTimeA1, setCurrentTimeA1] = useState(0);
   const [currentTimeA2, setCurrentTimeA2] = useState(0);
-  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(
-    null
-  );
+  const [currentAudio, setCurrentAudio] = useState(audioRef1.current);
+  const [isAudio1, checkAudio1] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -16,28 +15,48 @@ function AudioPlayer() {
       audioRef1.current.loop == false;
       audioRef2.current.loop == false;
       const totalTime = audioRef1.current.duration;
-      setCurrentAudio(audioRef1.current);
+
+      if (isAudio1 === true) {
+        setCurrentAudio(audioRef1.current);
+        audioRef1.current.addEventListener("timeupdate", () => {
+          setCurrentTime(audioRef1.current?.currentTime ?? 0);
+          audioRef2.current?.pause;
+        });
+      } else {
+        setCurrentAudio(audioRef2.current);
+        audioRef2.current.addEventListener("timeupdate", () => {
+          setCurrentTime(audioRef2.current?.currentTime ?? 0);
+          audioRef1.current?.pause;
+        });
+      }
 
       audioRef1.current.addEventListener("timeupdate", () => {
+        if (audioRef1.current?.currentTime === totalTime) {
+          audioRef1.current.pause();
+          audioRef1.current.volume = 0;
+        }
+
         setCurrentTimeA1(audioRef1.current?.currentTime ?? 0);
       });
 
       audioRef2.current.addEventListener("timeupdate", () => {
-        setCurrentTimeA2(audioRef2.current?.currentTime ?? 0);
-      });
+        if (audioRef2.current?.currentTime === totalTime) {
+          audioRef2.current.pause();
+          audioRef2.current.volume = 0;
+        }
 
-      audioRef1.current.addEventListener("timeupdate", () => {
-        setCurrentTime(audioRef1.current?.currentTime ?? 0);
-      });
-      audioRef2.current.addEventListener("timeupdate", () => {
-        setCurrentTime(audioRef2.current?.currentTime ?? 0);
+        setCurrentTimeA2(audioRef2.current?.currentTime ?? 0);
       });
 
       if (currentTime >= totalTime - 10) {
         handleAudioEnd();
       }
     }
-  }, [currentTime, audioRef1, audioRef2]);
+
+    console.log("currentAudio:", currentAudio);
+    // console.log("A1:", audioRef1);
+    // console.log("A2:", audioRef2);
+  }, [currentTime, audioRef1, audioRef2, currentAudio]);
 
   const play_pause_transition = () => {
     if (currentAudio) {
@@ -79,6 +98,8 @@ function AudioPlayer() {
     toAudio.volume = 1; // Play only the "to" audio
     toAudio.play(); // Play only the "to" audio
     setCurrentAudio(toAudio);
+
+    checkAudio1(isAudio1 === true ? false : true);
   };
 
   const toggleAudio = () => {
@@ -107,7 +128,7 @@ function AudioPlayer() {
             src="https://cdn.pixabay.com/audio/2022/07/04/audio_f52a5754b1.mp3"
             type="audio/mpeg"
           />
-          Your browser does not support the audio element.
+          Your browser does not support the audio element. 1
         </audio>
       </div>
       <div>
@@ -116,7 +137,7 @@ function AudioPlayer() {
             src="https://cdn.pixabay.com/audio/2022/07/04/audio_f52a5754b1.mp3"
             type="audio/mpeg"
           />
-          Your browser does not support the audio element.
+          Your browser does not support the audio element. 2
         </audio>
       </div>
     </div>

@@ -119,11 +119,11 @@ console.log("BEFORE IF STATEMENT PAUSE ===============")
   return (
     <div>
       <button onClick={toggleAudio}>{isPlaying ? "Pause" : "Play"}</button>
-      <p>Current Time: {currentTime.toFixed(2)} seconds</p>
+      {/* <p>Current Time: {currentTime.toFixed(2)} seconds</p>
       <p>Current Time A1: {currentTimeA1.toFixed(2)} seconds</p>
-      <p>Current Time A2: {currentTimeA2.toFixed(2)} seconds</p>
+      <p>Current Time A2: {currentTimeA2.toFixed(2)} seconds</p> */}
       <div>
-        <audio ref={audioRef1} controls>
+        <audio className="hidden" ref={audioRef1} controls>
           <source
             src="https://cdn.pixabay.com/audio/2022/07/04/audio_f52a5754b1.mp3"
             type="audio/mpeg"
@@ -132,7 +132,7 @@ console.log("BEFORE IF STATEMENT PAUSE ===============")
         </audio>
       </div>
       <div>
-        <audio ref={audioRef2} controls>
+        <audio className="hidden" ref={audioRef2} controls>
           <source
             src="https://cdn.pixabay.com/audio/2022/07/04/audio_f52a5754b1.mp3"
             type="audio/mpeg"

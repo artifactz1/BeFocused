@@ -311,7 +311,7 @@ const Timer: React.FC<Props> = ({
             )}
           </div>
 
-          <div className="absolute bottom-4 left-4 z-10">
+          <div className="flex absolute bottom-4 left-4 z-10">
             <SettingsComponent onSave={handleSave} />
             {/* <button
               onClick={() => setIsButtonToggled(!isButtonToggled)}
@@ -322,7 +322,9 @@ const Timer: React.FC<Props> = ({
             <Button onClick={() => nextRound()}>Next</Button>
             <Button onClick={() => resetTimer()}>Reset</Button>
             <ModeToggle />
-            <AudioPlayer />
+            <Button>
+              <AudioPlayer />
+            </Button>
           </div>
         </div>
       </div>

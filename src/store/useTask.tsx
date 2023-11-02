@@ -8,6 +8,7 @@ export interface Task {
   id: number;
   completed: boolean;
   task: string;
+  date: Date;
 }
 
 interface Store {
@@ -24,7 +25,12 @@ const useTask = persist<Store>(
       set(state => ({
         tasks: [
           ...state.tasks,
-          { id: state.tasks.length + 1, completed: false, task: task }
+          {
+            id: state.tasks.length + 1,
+            completed: false,
+            task: task,
+            date: new Date()
+          }
         ]
       })),
     toggleCompleted: id =>

@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
-import { Button } from "../../ui/button";
+import React, { useRef, useEffect, useState } from 'react';
+import { Button } from '../../ui/button';
+import { Icons } from '@/components/ui/icons';
 
 interface Props {
   isPlaying: boolean;
@@ -25,14 +26,14 @@ const AudioPlayer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
       if (isAudio1 === true) {
         // console.log("CURRENTLY AUDIO 1")
         setCurrentAudio(audioRef1.current);
-        audioRef1.current.addEventListener("timeupdate", () => {
+        audioRef1.current.addEventListener('timeupdate', () => {
           setCurrentTime(audioRef1.current?.currentTime ?? 0);
           // audioRef2.current?.pause;
         });
       } else {
         // console.log("CURRENTLY AUDIO 2")
         setCurrentAudio(audioRef2.current);
-        audioRef2.current.addEventListener("timeupdate", () => {
+        audioRef2.current.addEventListener('timeupdate', () => {
           setCurrentTime(audioRef2.current?.currentTime ?? 0);
           // audioRef1.current?.pause;
         });
@@ -136,37 +137,7 @@ const AudioPlayer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   return (
     <div>
       <Button onClick={toggleAudio}>
-        {isPlaying ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            className="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15.75 5.25v13.5m-7.5-13.5v13.5"
-            />
-          </svg>
-        ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            className="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
-            />
-          </svg>
-        )}
+        {isPlaying ? <Icons.play /> : <Icons.pause />}
       </Button>
 
       {/* <p>Current Time: {currentTime.toFixed(2)} seconds</p>

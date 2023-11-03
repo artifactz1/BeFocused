@@ -104,7 +104,7 @@ const AudioPlayer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
 
   const toggleAudio = () => {
     if (currentAudio) {
-      if (isPlaying) {
+      if (isPlaying === true) {
         setIsPlaying(false);
         play_pause_transition();
       } else {
@@ -116,9 +116,22 @@ const AudioPlayer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
     }
   };
 
-  //   useEffect(() => {
-  //     toggleAudio;
-  //   }, [isPlaying]);
+  // This is to check the parent components isPlaying to turn off audio
+  // Literally the same as toggleAudio
+  useEffect(() => {
+    if (currentAudio) {
+      if (isPlaying === false) {
+        setIsPlaying(false);
+        play_pause_transition();
+      } else {
+        setIsPlaying(true);
+        currentAudio.currentTime = 0;
+        currentAudio.play();
+        setIsPlaying(true);
+        setCurrentTime(currentAudio.currentTime);
+      }
+    }
+  }, [isPlaying]);
 
   return (
     <div>

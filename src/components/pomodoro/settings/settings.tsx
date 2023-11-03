@@ -111,7 +111,7 @@ const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
           onClick={handleSave}
           className="flex flex-row-reverse border border-1 rounded-md w-fit p-2 cursor-pointer"
         >
-          Save
+          Reset
         </Button>
       </DropdownMenuContent>
     </DropdownMenu>

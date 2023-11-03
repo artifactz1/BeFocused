@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import ButtonInput from './button';
+import React, { useEffect, useState } from "react";
+import ButtonInput from "./button";
 
 import {
   DropdownMenu,
@@ -7,12 +7,12 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Slider } from '@/components/ui/slider';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
 
 interface SettingsProps {
   onSave: (values: any) => void;
@@ -20,20 +20,20 @@ interface SettingsProps {
 
 const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
   const maxRangeMinutes = 90;
-  const maxRounds = 12
+  const maxRounds = 12;
 
   const [values, setValues] = useState({
     focus: 25,
     shortBreak: 5,
     longBreak: 15,
     rounds: 4,
-    change: false
+    change: false,
   });
 
   const handleRangeValueChange = (newRangeValue: number, type: string) => {
-    setValues(prevValues => ({
+    setValues((prevValues) => ({
       ...prevValues,
-      [type]: newRangeValue
+      [type]: newRangeValue,
     }));
   };
 
@@ -57,8 +57,8 @@ const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
               defaultValue={[values.focus]}
               min={1}
               max={maxRangeMinutes}
-              onValueChange={value => {
-                handleRangeValueChange(value[0], 'focus');
+              onValueChange={(value) => {
+                handleRangeValueChange(value[0], "focus");
               }}
               step={1}
             />
@@ -71,8 +71,8 @@ const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
               defaultValue={[values.shortBreak]}
               min={1}
               max={maxRangeMinutes}
-              onValueChange={value => {
-                handleRangeValueChange(value[0], 'shortBreak');
+              onValueChange={(value) => {
+                handleRangeValueChange(value[0], "shortBreak");
               }}
               step={1}
             />
@@ -85,8 +85,8 @@ const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
               defaultValue={[values.longBreak]}
               min={1}
               max={maxRangeMinutes}
-              onValueChange={value => {
-                handleRangeValueChange(value[0], 'longBreak');
+              onValueChange={(value) => {
+                handleRangeValueChange(value[0], "longBreak");
               }}
               step={1}
             />
@@ -100,8 +100,8 @@ const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
               min={1}
               max={maxRounds}
               step={1}
-              onValueChange={value => {
-                handleRangeValueChange(value[0], 'rounds');
+              onValueChange={(value) => {
+                handleRangeValueChange(value[0], "rounds");
               }}
             />
           </CardContent>
@@ -111,7 +111,7 @@ const SettingsComponent: React.FC<SettingsProps> = ({ onSave }) => {
           onClick={handleSave}
           className="flex flex-row-reverse border border-1 rounded-md w-fit p-2 cursor-pointer"
         >
-          Save
+          Reset
         </Button>
       </DropdownMenuContent>
     </DropdownMenu>

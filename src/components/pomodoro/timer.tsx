@@ -68,12 +68,12 @@ const Timer: React.FC<Props> = ({
   const [roundType, setRoundType] = useState("FOCUS");
 
   const [savedValues, setSavedValues] = useState<any>(null);
-  const [counterRounds, setCounterRounds] = useState(0);
 
   useEffect(() => {
     resetTimer();
   }, [inputMinutes]);
 
+  useEffect(() => {}, [isPlaying]);
   const roundTypeCalc = (
     currentRound: number,
     maxRound: number,
@@ -206,6 +206,7 @@ const Timer: React.FC<Props> = ({
   const handleSave = (values: any) => {
     console.log("Received values in parent:", values);
 
+    setIsPlaying(false);
     setInputMinutes(values.focus); // Use values.focus directly
     setTotalFocus(values.focus);
     setCurrentRound(1);
@@ -274,7 +275,7 @@ const Timer: React.FC<Props> = ({
 
             {/* Play/Pause Button */}
             {/* Play/Pause Button */}
-            {isPlaying ? (
+            {/* {isPlaying ? (
               <Button onClick={pauseTimer}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -308,7 +309,8 @@ const Timer: React.FC<Props> = ({
                   />
                 </svg>
               </Button>
-            )}
+            )} */}
+            <AudioPlayer isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
           </div>
 
           <div className="flex absolute bottom-4 left-4 z-10">
@@ -322,9 +324,7 @@ const Timer: React.FC<Props> = ({
             <Button onClick={() => nextRound()}>Next</Button>
             <Button onClick={() => resetTimer()}>Reset</Button>
             <ModeToggle />
-            <Button>
-              <AudioPlayer />
-            </Button>
+            {/* <AudioPlayer isPlaying={isPlaying} setIsPlaying={setIsPlaying} /> */}
           </div>
         </div>
       </div>

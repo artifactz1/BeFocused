@@ -1,6 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 
-function AudioPlayer() {
+interface Props {
+  isPlaying: boolean;
+  setIsPlaying: (isPLaying: boolean) => void;
+  children?: React.ReactNode;
+}
+
+const AudioPlayer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const audioRef1 = useRef<HTMLAudioElement | null>(null);
   const audioRef2 = useRef<HTMLAudioElement | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
@@ -8,7 +14,7 @@ function AudioPlayer() {
   const [currentTimeA2, setCurrentTimeA2] = useState(0);
   const [currentAudio, setCurrentAudio] = useState(audioRef1.current);
   const [isAudio1, checkAudio1] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
+  //   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     if (audioRef1.current && audioRef2.current) {
@@ -17,16 +23,14 @@ function AudioPlayer() {
       const totalTime = audioRef1.current.duration;
 
       if (isAudio1 === true) {
-        console.log("CURRENTLY AUDIO 1")
+        // console.log("CURRENTLY AUDIO 1")
         setCurrentAudio(audioRef1.current);
         audioRef1.current.addEventListener("timeupdate", () => {
           setCurrentTime(audioRef1.current?.currentTime ?? 0);
           // audioRef2.current?.pause;
         });
-      } 
-      else {
-
-        console.log("CURRENTLY AUDIO 2")
+      } else {
+        // console.log("CURRENTLY AUDIO 2")
         setCurrentAudio(audioRef2.current);
         audioRef2.current.addEventListener("timeupdate", () => {
           setCurrentTime(audioRef2.current?.currentTime ?? 0);
@@ -47,7 +51,7 @@ function AudioPlayer() {
       }
     }
 
-    console.log("currentAudio:", currentAudio);
+    // console.log("currentAudio:", currentAudio);
     // console.log("A1:", audioRef1);
     // console.log("A2:", audioRef2);
   }, [currentTime, audioRef1, audioRef2, currentAudio]);
@@ -69,7 +73,7 @@ function AudioPlayer() {
     }
   };
 
-  const crossfadeDuration = 2;
+  const crossfadeDuration = 1;
   const fadeOutInterval = 10;
 
   const handleAudioEnd = () => {
@@ -82,24 +86,20 @@ function AudioPlayer() {
         ? audioRef2.current!
         : audioRef1.current!;
 
-
-
     // toAudio.currentTime = 0; // Ensure that the "to" audio starts from the beginning
     setCurrentTime(toAudio.currentTime);
     toAudio.volume = 1; // Play only the "to" audio
     toAudio.play(); // Play only the "to" audio
     setCurrentAudio(toAudio);
 
-
-console.log("BEFORE IF STATEMENT PAUSE ===============")
+    // console.log("BEFORE IF STATEMENT PAUSE ===============");
     if (fromAudio.currentTime === fromAudio.duration) {
-    checkAudio1(isAudio1 === true ? false : true);
+      checkAudio1(isAudio1 === true ? false : true);
       fromAudio.currentTime = 0;
       fromAudio.volume = 0;
       fromAudio.pause();
-      console.log("PAUSE FROM AUDIO ============")
+      //   console.log("PAUSE FROM AUDIO ============");
     }
-
   };
 
   const toggleAudio = () => {
@@ -115,6 +115,10 @@ console.log("BEFORE IF STATEMENT PAUSE ===============")
       }
     }
   };
+
+  //   useEffect(() => {
+  //     toggleAudio;
+  //   }, [isPlaying]);
 
   return (
     <div>
@@ -142,6 +146,6 @@ console.log("BEFORE IF STATEMENT PAUSE ===============")
       </div>
     </div>
   );
-}
+};
 
 export default AudioPlayer;

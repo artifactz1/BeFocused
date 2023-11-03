@@ -10,11 +10,10 @@ const AudioPlayer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
   const audioRef1 = useRef<HTMLAudioElement | null>(null);
   const audioRef2 = useRef<HTMLAudioElement | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
-  const [currentTimeA1, setCurrentTimeA1] = useState(0);
-  const [currentTimeA2, setCurrentTimeA2] = useState(0);
+  //   const [currentTimeA1, setCurrentTimeA1] = useState(0);
+  //   const [currentTimeA2, setCurrentTimeA2] = useState(0);
   const [currentAudio, setCurrentAudio] = useState(audioRef1.current);
   const [isAudio1, checkAudio1] = useState(true);
-  //   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     if (audioRef1.current && audioRef2.current) {
@@ -38,13 +37,13 @@ const AudioPlayer: React.FC<Props> = ({ isPlaying, setIsPlaying }) => {
         });
       }
 
-      audioRef1.current.addEventListener("timeupdate", () => {
-        setCurrentTimeA1(audioRef1.current?.currentTime ?? 0);
-      });
+      //   audioRef1.current.addEventListener("timeupdate", () => {
+      //     setCurrentTimeA1(audioRef1.current?.currentTime ?? 0);
+      //   });
 
-      audioRef2.current.addEventListener("timeupdate", () => {
-        setCurrentTimeA2(audioRef2.current?.currentTime ?? 0);
-      });
+      //   audioRef2.current.addEventListener("timeupdate", () => {
+      //     setCurrentTimeA2(audioRef2.current?.currentTime ?? 0);
+      //   });
 
       if (currentTime >= totalTime - 10) {
         handleAudioEnd();
